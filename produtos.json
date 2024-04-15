@@ -1,0 +1,28 @@
+{   "camisa": { 
+        "Camisa Oversized": {"modelo": "manga curta", "cor": "verde", "tecido": "algodão", "descrição": "estampa de borboletas em veludo", "tamanhos disponíveis": ["P", "M", "G", "GG"], "preço": 99.9},
+        "Camisa Cropped": {"modelo": "manga curta", "cor": "preta", "tecido": "poliéster e elastano", "descrição": "preta com brilho", "tamanhos disponíveis": ["PP", "P", "M", "G"], "preço": 79.9},
+        "Camisa Xadrez": {"modelo": "manga longa", "cor": "vermelha e preta", "tecido": "poliéster e algodão", "descrição": "bolsos na frente e fechamento em botão", "tamanhos disponíveis": ["PP", "P", "M", "G", "GG"], "preço": 179.9},
+        "Camisa Regata": {"modelo": "alça fina", "cor": "preta", "tecido": "algodão", "descrição": "lavagem marmorizada e detalhe emborrachado", "tamanhos disponíveis": ["P", "M", "G", "GG"], "preço": 89.9},
+        "Camisa Tricô": {"modelo": "manga longa", "cor": "amarelo", "tecido": "algodão", "descrição": "estampa estilo boho", "tamanhos disponíveis": ["P", "M", "G", "GG"], "preço": 239.9}
+    },
+    "calça": {
+        "Calça Mom": {"modelo": "destroyed", "cor": "preta", "tecido": "algodão", "descrição": "rasgos desfiados nos joelhos", "tamanhos disponíveis": [32, 34, 36, 38, 40, 42, 44], "preço": 199.9},
+        "Calça Jeans": {"modelo": "baggy", "cor": "jeans", "tecido": "algodão", "descrição": "mais soltinha nas pernas", "tamanhos disponíveis": [36, 38, 40, 42, 44, 46], "preço": 219.9}
+    },
+    "saia":{
+        "Saia Cargo": {"modelo": "cós duplo", "cor": "preta", "tecido": "algodão", "descrição": "detalhe em off-white no cós", "tamanhos disponíveis": [34, 36, 38, 40, 42, 44], "preço": 199.9}
+    },
+    "casaco":{
+        "Casaco de Pelinho": {"modelo": "moletom", "cor": "preta", "tecido": "poliéster", "descrição": "escrito bordado em preto", "tamanhos disponíveis": ["PP", "P", "M", "G", "GG"], "preço": 219.9}
+    },
+    "vestido":{
+        "Vestido Tule": {"modelo": "sem alça", "cor": "preta", "tecido": "poliamida e poliéster", "descrição": "tule preto brilhoso, com forro, decote reto", "tamanhos disponíveis": ["PP", "P", "M", "G", "GG"], "preço": 199.9},
+        "Vestido": {"modelo": "manga longa", "cor": "preto", "tecido": "viscose", "descrição": "manga bufante, estampa de florzinhas vermelhas", "tamanhos disponíveis": ["PP", "P", "M", "G", "GG"], "preço": 199.9}
+    },
+    "short":{
+        "Short Saia": {"modelo": "cintura alta", "cor": "preto e verde", "tecido": "poliéster e viscose", "descrição": "estampa xadrez", "tamanhos disponíveis": ["PP", "P", "M", "G"], "preço": 159.9}
+    },
+    "bermuda":{
+        "Bermuda Jeans": {"modelo": "lisa", "cor": "jeans claro", "tecido": "algodão", "descrição": "fechamento em zíper e botão", "tamanhos disponíveis": [38, 40, 42, 44], "preço": 139.9}
+    }
+}
