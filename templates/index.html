@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Material Design for Bootstrap</title>
+    <title>E-dtwo</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -23,21 +23,9 @@
       <div class="row gy-3">
         <!-- Left elements -->
         <div class="col-lg-2 col-sm-4 col-4">
-          <a href="https://mdbootstrap.com/" target="_blank" class="float-start">
-            <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="35" />
-          </a>
+          <img src="{{ url_for('static',    filename='img/Untitled_logo_1_free-file-removebg-preview(1).png')}}" height="45" />
         </div>
         <!-- Left elements -->
-
-        <!-- Center elements -->
-        <div class="order-lg-last col-lg-5 col-sm-8 col-8">
-          <div class="d-flex float-end">
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i class="fas fa-user-alt m-1 me-md-2"></i><p class="d-none d-md-block mb-0">Sign in</p> </a>
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i class="fas fa-heart m-1 me-md-2"></i><p class="d-none d-md-block mb-0">Wishlist</p> </a>
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank"> <i class="fas fa-shopping-cart m-1 me-md-2"></i><p class="d-none d-md-block mb-0">My cart</p> </a>
-          </div>
-        </div>
-        <!-- Center elements -->
 
         <!-- Right elements -->
         <div class="col-lg-5 col-md-12 col-12">
@@ -71,7 +59,7 @@
         <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href= {{url_for('sobre1')}}>Catálogo</a>
+            <a class="nav-link" href= {{url_for('sobre1')}} target="_blank">Catálogo</a>
           </li>
           <!-- Navbar dropdown -->
         </ul>
@@ -103,10 +91,10 @@
           </a>
           <div class="card-body p-0 pt-3">
             <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
-            <h5 class="card-title">$29.95</h5>
-            <p class="card-text mb-0">GoPro action camera 4K</p>
+            <h5 class="card-title">R$199,90</h5>
+            <p class="card-text mb-0">Calça Mom</p>
             <p class="text-muted">
-              Model: X-200
+              Tamanhos: 34, 36, 40
             </p>
           </div>
         </div>
@@ -118,10 +106,10 @@
           </a>
           <div class="card-body p-0 pt-2">
             <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
-            <h5 class="card-title">$590.00</h5>
-            <p class="card-text mb-0">Canon EOS professional</p>
+            <h5 class="card-title">R$190,90</h5>
+            <p class="card-text mb-0">Calça Couro</p>
             <p class="text-muted">
-              Capacity: 128GB
+              Tamanhos: 34, 26, 40
             </p>
           </div>
         </div>
@@ -133,10 +121,10 @@
           </a>
           <div class="card-body p-0 pt-2">
             <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
-            <h5 class="card-title">$29.95</h5>
-            <p class="card-text mb-0">Modern product name here</p>
+            <h5 class="card-title">R$79,90</h5>
+            <p class="card-text mb-0">Cropped Manga Longa</p>
             <p class="text-muted">
-              Sizes: S, M, XL
+              Tamanhos: P, M, G
             </p>
           </div>
         </div>
@@ -148,10 +136,10 @@
           </a>
           <div class="card-body p-0 pt-2">
             <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
-            <h5 class="card-title">$1099.00</h5>
-            <p class="card-text mb-0">Apple iPhone 13 Pro max</p>
+            <h5 class="card-title">R$219.90</h5>
+            <p class="card-text mb-0">Calça Jeans</p>
             <p class="text-muted">
-              Color: Black, Memory: 128GB
+              Tamanhos: 40, 44, 46
             </p>
           </div>
         </div>
@@ -163,10 +151,10 @@
           </a>
           <div class="card-body p-0 pt-2">
             <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
-            <h5 class="card-title">$29.95</h5>
-            <p class="card-text mb-0">Modern product name here</p>
+            <h5 class="card-title">R$209,90</h5>
+            <p class="card-text mb-0">Calça Slim</p>
             <p class="text-muted">
-              Sizes: S, M, XL
+              Tamanhos: 40, 44, 46
             </p>
           </div>
         </div>
@@ -178,10 +166,10 @@
           </a>
           <div class="card-body p-0 pt-2">
             <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
-            <h5 class="card-title">$29.95</h5>
-            <p class="card-text mb-0">Modern product name here</p>
+            <h5 class="card-title">R$89,90</h5>
+            <p class="card-text mb-0">Camisa Transpassada</p>
             <p class="text-muted">
-              Model: X-200
+              Tamanhos: P, M, G
             </p>
           </div>
         </div>
@@ -193,10 +181,10 @@
           </a>
           <div class="card-body p-0 pt-2">
             <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
-            <h5 class="card-title">$29.95</h5>
-            <p class="card-text mb-0">Modern product name here</p>
+            <h5 class="card-title">$59,90</h5>
+            <p class="card-text mb-0">Camisa Oversized</p>
             <p class="text-muted">
-              Sizes: S, M, XL
+              Tamanhos: P, M, G
             </p>
           </div>
         </div>
@@ -208,10 +196,10 @@
           </a>
           <div class="card-body p-0 pt-2">
             <a href="#!" class="btn btn-light border px-2 pt-2 float-end icon-hover"><i class="fas fa-heart fa-lg px-1 text-secondary"></i></a>
-            <h5 class="card-title">$29.95</h5>
-            <p class="card-text mb-0">Modern product name here</p>
+            <h5 class="card-title">$69.90</h5>
+            <p class="card-text mb-0">Camisa Slim</p>
             <p class="text-muted">
-              Material: Jeans
+              Tamnhos: M, G, GG
             </p>
           </div>
         </div>
