@@ -326,16 +326,45 @@
               </div>
             </div>
           </header>
-          <tbody>
+          <table>
+            <thead>
+                <tr>
+                    <th>Modelo</th>
+                    <th>Cor</th>
+                    <th>Tecido</th>
+                    <th>Descrição</th>
+                    <th>Tamanhos</th>
+                    <th>Preço</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for camisa_nome, camisa in catalogo.camisa.items() %}
+                    <tr>
+                        <td>{{ camisa_nome }}</td>
+                        <td>{{ camisa.modelo }}</td>
+                        <td>{{ camisa.cor }}</td>
+                        <td>{{ camisa.tecido }}</td>
+                        <td>{{ camisa.descricao }}</td>
+                        <td>{{ camisa.tamanhos | join(", ") }}</td>
+                        <td>{{ camisa.preco }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+          <!-- <tbody>
             {% for produto in catalogo%}
                  <tr>
-                      <td>{{produto.nome}}</td>
-                      <td>{{produto.quantidade}}</td>
+                      <td>{{produto.modelo}}</td>
+                      <td>{{produto.cor}}</td>
+                      <td>{{produto.tecido}}</td>
+                      <td>{{produto.descricao}}</td>
+                      <td>{{produto.tamanhos}}</td>
+                      <td>{{produto.preco}}</td>
                  </tr>
-            {%endfor%}          
+            {% endfor %}          
             
           </tbody>
-          </table>
+          </table> -->
   
           <hr />
   
