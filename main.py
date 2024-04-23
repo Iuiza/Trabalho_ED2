@@ -8,22 +8,24 @@ def home():
     
 @app.route('/etapa1')
 def sobre1():
-    titulo = "Produtos"
-    produtos = [
-        {"nome": "Cadeira", "quantidade": 8},
-        {"nome": "Cafeteira", "quantidade": 4},
-        {"nome": "Mixer", "quantidade": 6},
-        {"nome": "Cadeira", "quantidade": 8},
-        {"nome": "Cafeteira", "quantidade": 4},
-        {"nome": "Mixer", "quantidade": 6},
-        {"nome": "Cadeira", "quantidade": 8},
-        {"nome": "Cafeteira", "quantidade": 4},
-        {"nome": "Mixer", "quantidade": 6},
-        {"nome": "Cadeira", "quantidade": 8},
-        {"nome": "Cafeteira", "quantidade": 4},
-        {"nome": "Mixer", "quantidade": 6}
-    ]
-    return render_template('etapa1.html', titulo = titulo, produtos = produtos)
+    titulo= "Catalogo"
+    import json
+
+    # Abra o arquivo JSON
+    with open('produtos.json', 'r') as f:
+        # Carregue o conteúdo do arquivo JSON como um dicionário
+        catalogo = json.load(f)
+
+    # Agora 'data' é um dicionário contendo o conteúdo do arquivo JSON
+    # print(catalogo)
+
+
+    # catalogo = [
+    #     {"nome": "Cadeira", "quantidade": 8},
+    #     {"nome": "Cafeteira", "quantidade": 4},
+    #     {"nome": "Mixer", "quantidade": 6},
+    # ]
+    return render_template('etapa1.html', titulo = titulo, catalogo = catalogo)
     
 if __name__ == "__main__":
     app.run(debug=True)

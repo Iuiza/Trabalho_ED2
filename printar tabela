@@ -1,0 +1,30 @@
+          <table>
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Produto</th>
+                    <th>Modelo</th>
+                    <th>Cor</th>
+                    <th>Tecido</th>
+                    <th>Descrição</th>
+                    <th>Tamanhos Disponíveis</th>
+                    <th>Preço</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for categoria, produtos_categoria in catalogo.items() %}
+                    {% for produto_nome, produto_info in produtos_categoria.items() %}
+                        <tr>
+                            <td>{{ categoria.capitalize() }}</td>
+                            <td>{{ produto_nome.replace('_', ' ').capitalize() }}</td>
+                            <td>{{ produto_info['modelo'] }}</td>
+                            <td>{{ produto_info['cor'] }}</td>
+                            <td>{{ produto_info['tecido'] }}</td>
+                            <td>{{ produto_info['descricao'] }}</td>
+                            <td>{% for tamanho in produto_info['tamanhos_disponiveis'] %}{{ tamanho }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                            <td>{{ produto_info['preco'] }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
