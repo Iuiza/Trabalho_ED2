@@ -3,7 +3,7 @@
         "Camisa Cropped": {"modelo": "manga curta", "cor": "preta", "tecido": "poliéster e elastano", "descricao": "preta com brilho", "tamanhos": ["PP", "P", "M", "G"], "preco": 79.9},
         "Camisa Xadrez": {"modelo": "manga longa", "cor": "vermelha e preta", "tecido": "poliéster e algodão", "descricao": "bolsos na frente e fechamento em botão", "tamanhos": ["PP", "P", "M", "G", "GG"], "preco": 179.9},
         "Camisa Regata": {"modelo": "alça fina", "cor": "preta", "tecido": "algodão", "descricao": "lavagem marmorizada e detalhe emborrachado", "tamanhos": ["P", "M", "G", "GG"], "preco": 89.9},
-        "Camisa Tricô": {"modelo": "manga longa", "cor": "amarelo", "tecido": "algodão", "descricao": "estampa estilo boho", "tamanhos": ["P", "M", "G", "GG"], "preco": 239.9}
+        "Camisa Tricotada": {"modelo": "manga longa", "cor": "amarelo", "tecido": "algodão", "descricao": "estampa estilo boho", "tamanhos": ["P", "M", "G", "GG"], "preco": 239.9}
     },
     "calça": {
         "Calça Mom": {"modelo": "destroyed", "cor": "preta", "tecido": "algodão", "descricao": "rasgos desfiados nos joelhos", "tamanhos": [32, 34, 36, 38, 40, 42, 44], "preco": 199.9},
