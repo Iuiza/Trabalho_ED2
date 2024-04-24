@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>E-dtwo</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
-    <!-- Google Fonts Roboto -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
-    <!-- MDB -->
-    <link rel="stylesheet" href="{{ url_for('static',    filename='css/mdb.min.css') }}">
-    <!-- Custom styles -->
-    <link rel="stylesheet" href="{{ url_for('static',    filename='css/style.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>E-dtwo</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+  <!-- MDB -->
+  <link rel="stylesheet" href="{{ url_for('static',    filename='css/mdb.min.css') }}">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="{{ url_for('static',    filename='css/style.css') }}">
 </head>
+
 <body>
 
-<!--Main Navigation-->
-<header>
+  <!--Main Navigation-->
+  <header>
     <!-- Jumbotron -->
     <div class="p-3 text-center bg-white border-bottom">
       <div class="container">
         <div class="row gy-3">
           <!-- Left elements -->
           <div class="col-lg-2 col-sm-4 col-4">
-            <img src="{{ url_for('static',    filename='img/Untitled_logo_1_free-file-removebg-preview(1).png')}}" height="45" />
+            <img src="{{ url_for('static',    filename='img/Untitled_logo_1_free-file-removebg-preview(1).png')}}"
+              height="45" />
           </div>
           <!-- Left elements -->
-  
+
           <!-- Right elements -->
           <div class="col-lg-5 col-md-12 col-12">
             <div class="input-group float-center">
@@ -45,7 +48,7 @@
       </div>
     </div>
     <!-- Jumbotron -->
-  
+
     <!-- Heading -->
     <div class="bg-primary mb-4">
       <div class="container py-4">
@@ -53,53 +56,59 @@
     </div>
     <!-- Heading -->
   </header>
-  
+
   <!-- sidebar + content -->
   <section class="">
-        <!-- sidebar -->
-        <!-- content -->
-        <div class="col-lg-9">
-          <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
-              <div class="btn-group shadow-0 border">
-              </div>
-            </div>
-          </header>
-          <div class="container">
-            <h2 class="text-center">Catálogo</h2>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Categoria</th>
-                            <th scope="col">Produto</th>
-                            <th scope="col">Modelo</th>
-                            <th scope="col">Cor</th>
-                            <th scope="col">Tecido</th>
-                            <th scope="col">Descrição</th>
-                            <th scope="col">Tamanhos Disponíveis</th>
-                            <th scope="col">Preço</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for categoria, produtos_categoria in catalogo.items() %}
-                        {% for produto_nome, produto_info in produtos_categoria.items() %}
-                        <tr>
-                            <td>{{ categoria.capitalize() }}</td>
-                            <td>{{ produto_nome.replace('_', ' ').capitalize() }}</td>
-                            <td>{{ produto_info['modelo'] }}</td>
-                            <td>{{ produto_info['cor'] }}</td>
-                            <td>{{ produto_info['tecido'] }}</td>
-                            <td>{{ produto_info['descricao'] }}</td>
-                            <td>{% for tamanho in produto_info['tamanhos'] %}{{ tamanho }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
-                            <td>{{ produto_info['preco'] }}</td>
-                        </tr>
-                        {% endfor %}
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+    <div class="download">
+      <a href="{{ url_for('download_file') }}" download>
+        <button type="button">DOWNLOAD</button>
+      </a>
+    </div>
+    <!-- sidebar -->
+    <!-- content -->
+    <div class="col-lg-9">
+      <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
+        <div class="btn-group shadow-0 border">
         </div>
-        </div>
+    </div>
+    </header>
+    <div class="container">
+      <h2 class="text-center">Catálogo</h2>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Categoria</th>
+              <th scope="col">Produto</th>
+              <th scope="col">Modelo</th>
+              <th scope="col">Cor</th>
+              <th scope="col">Tecido</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Tamanhos Disponíveis</th>
+              <th scope="col">Preço</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for categoria, produtos_categoria in catalogo.items() %}
+            {% for produto_nome, produto_info in produtos_categoria.items() %}
+            <tr>
+              <td>{{ categoria.capitalize() }}</td>
+              <td>{{ produto_nome.replace('_', ' ').capitalize() }}</td>
+              <td>{{ produto_info['modelo'] }}</td>
+              <td>{{ produto_info['cor'] }}</td>
+              <td>{{ produto_info['tecido'] }}</td>
+              <td>{{ produto_info['descricao'] }}</td>
+              <td>{% for tamanho in produto_info['tamanhos'] %}{{ tamanho }}{% if not loop.last %}, {% endif %}{% endfor
+                %}</td>
+              <td>{{ produto_info['preco'] }}</td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
+    </div>
+    </div>
+    </div>
     </div>
   </section>
