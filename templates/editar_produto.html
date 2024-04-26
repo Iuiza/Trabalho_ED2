@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Produto</title>
+</head>
+<body>
+    <h1>Editar Produto</h1>
+    <form method="POST">
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" value="{{ produto['modelo'] }}"><br><br>
+        
+        <label for="cor">Cor:</label>
+        <input type="text" id="cor" name="cor" value="{{ produto['cor'] }}"><br><br>
+        
+        <label for="tecido">Tecido:</label>
+        <input type="text" id="tecido" name="tecido" value="{{ produto['tecido'] }}"><br><br>
+        
+        <label for="descricao">Descrição:</label><br>
+        <textarea id="descricao" name="descricao" rows="4" cols="50">{{ produto['descricao'] }}</textarea><br><br>
+        
+        <label for="tamanhos">Tamanhos Disponíveis (separados por vírgula):</label>
+        <input type="text" id="tamanhos" name="tamanhos" value="{{ ', '.join(produto['tamanhos']) }}"><br><br>
+        
+        <label for="preco">Preço:</label>
+        <input type="text" id="preco" name="preco" value="{{ produto['preco'] }}"><br><br>
+        
+        <input type="submit" value="Editar Produto">
+    </form>
+</body>
+</html>

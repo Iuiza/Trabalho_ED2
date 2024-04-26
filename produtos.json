@@ -1,28 +1,260 @@
-{   "camisa": { 
-        "Camisa Oversized": {"modelo": "manga curta", "cor": "verde", "tecido": "algodão", "descricao": "estampa de borboletas em veludo", "tamanhos": ["P", "M", "G", "GG"], "preco": 99.9},
-        "Camisa Cropped": {"modelo": "manga curta", "cor": "preta", "tecido": "poliéster e elastano", "descricao": "preta com brilho", "tamanhos": ["PP", "P", "M", "G"], "preco": 79.9},
-        "Camisa Xadrez": {"modelo": "manga longa", "cor": "vermelha e preta", "tecido": "poliéster e algodão", "descricao": "bolsos na frente e fechamento em botão", "tamanhos": ["PP", "P", "M", "G", "GG"], "preco": 179.9},
-        "Camisa Regata": {"modelo": "alça fina", "cor": "preta", "tecido": "algodão", "descricao": "lavagem marmorizada e detalhe emborrachado", "tamanhos": ["P", "M", "G", "GG"], "preco": 89.9},
-        "Camisa Tricotada": {"modelo": "manga longa", "cor": "amarelo", "tecido": "algodão", "descricao": "estampa estilo boho", "tamanhos": ["P", "M", "G", "GG"], "preco": 239.9}
+{
+    "camisa": {
+        "Camisa Oversized": {
+            "modelo": "manga curta",
+            "cor": "verde",
+            "tecido": "algodão",
+            "descricao": "estampa de borboletas em veludo",
+            "tamanhos": [
+                "P",
+                "M",
+                "G",
+                "GG"
+            ],
+            "preco": 99.9
+        },
+        "Camisa Cropped": {
+            "modelo": "manga curta",
+            "cor": "preta",
+            "tecido": "poliéster e elastano",
+            "descricao": "preta com brilho",
+            "tamanhos": [
+                "PP",
+                "P",
+                "M",
+                "G"
+            ],
+            "preco": 79.9
+        },
+        "Camisa Xadrez": {
+            "modelo": "manga longa",
+            "cor": "vermelha e preta",
+            "tecido": "poliéster e algodão",
+            "descricao": "bolsos na frente e fechamento em botão",
+            "tamanhos": [
+                "PP",
+                "P",
+                "M",
+                "G",
+                "GG"
+            ],
+            "preco": 179.9
+        },
+        "Camisa Regata": {
+            "modelo": "alça fina",
+            "cor": "preta",
+            "tecido": "algodão",
+            "descricao": "lavagem marmorizada e detalhe emborrachado",
+            "tamanhos": [
+                "P",
+                "M",
+                "G",
+                "GG"
+            ],
+            "preco": 89.9
+        },
+        "Camisa Tricotada": {
+            "modelo": "manga longa",
+            "cor": "amarelo",
+            "tecido": "algodão",
+            "descricao": "estampa estilo boho",
+            "tamanhos": [
+                "P",
+                "M",
+                "G",
+                "GG"
+            ],
+            "preco": 239.9
+        }
     },
     "calça": {
-        "Calça Mom": {"modelo": "destroyed", "cor": "preta", "tecido": "algodão", "descricao": "rasgos desfiados nos joelhos", "tamanhos": [32, 34, 36, 38, 40, 42, 44], "preco": 199.9},
-        "Calça Jeans": {"modelo": "baggy", "cor": "jeans", "tecido": "algodão", "descricao": "mais soltinha nas pernas", "tamanhos": [36, 38, 40, 42, 44, 46], "preco": 219.9}
+        "Calça Mom": {
+            "modelo": "destroyed",
+            "cor": "preta",
+            "tecido": "algodão",
+            "descricao": "rasgos desfiados nos joelhos",
+            "tamanhos": [
+                32,
+                34,
+                36,
+                38,
+                40,
+                42,
+                44
+            ],
+            "preco": 199.9
+        },
+        "Calça Jeans": {
+            "modelo": "baggy",
+            "cor": "jeans",
+            "tecido": "algodão",
+            "descricao": "mais soltinha nas pernas",
+            "tamanhos": [
+                36,
+                38,
+                40,
+                42,
+                44,
+                46
+            ],
+            "preco": 219.9
+        },
+        "Calça anos 90": {
+            "modelo": "cintura média",
+            "cor": "vinho",
+            "tecido": "jeans",
+            "descricao": "costuras na cor branca",
+            "tamanhos": [
+                "35",
+                "36",
+                "38",
+                "40"
+            ],
+            "preco": 85.9
+        }
     },
-    "saia":{
-        "Saia Cargo": {"modelo": "cós duplo", "cor": "preta", "tecido": "algodão", "descricao": "detalhe em off-white no cós", "tamanhos": [34, 36, 38, 40, 42, 44], "preco": 199.9}
+    "saia": {
+        "Saia Cargo": {
+            "modelo": "cós duplo",
+            "cor": "preta",
+            "tecido": "algodão",
+            "descricao": "detalhe em off-white no cós",
+            "tamanhos": [
+                34,
+                36,
+                38,
+                40,
+                42,
+                44
+            ],
+            "preco": 199.9
+        },
+        "Sabrina": {
+            "modelo": "mini",
+            "cor": "rosa",
+            "tecido": "couro",
+            "descricao": "mini saia da sabrina carpenter",
+            "tamanhos": [
+                "PP",
+                "P",
+                "M"
+            ],
+            "preco": 139.9
+        }
     },
-    "casaco":{
-        "Casaco de Pelinho": {"modelo": "moletom", "cor": "preta", "tecido": "poliéster", "descricao": "escrito bordado em preto", "tamanhos": ["PP", "P", "M", "G", "GG"], "preco": 219.9}
+    "casaco": {
+        "Casaco de Pelinho": {
+            "modelo": "moletom",
+            "cor": "preta",
+            "tecido": "poliéster",
+            "descricao": "escrito bordado em preto",
+            "tamanhos": [
+                "PP",
+                "P",
+                "M",
+                "G",
+                "GG"
+            ],
+            "preco": 219.9
+        }
     },
-    "vestido":{
-        "Vestido Tule": {"modelo": "sem alça", "cor": "preta", "tecido": "poliamida e poliéster", "descricao": "tule preto brilhoso, com forro, decote reto", "tamanhos": ["PP", "P", "M", "G", "GG"], "preco": 199.9},
-        "Vestido": {"modelo": "manga longa", "cor": "preto", "tecido": "viscose", "descricao": "manga bufante, estampa de florzinhas vermelhas", "tamanhos": ["PP", "P", "M", "G", "GG"], "preco": 199.9}
+    "vestido": {
+        "Vestido Tule": {
+            "modelo": "sem alça",
+            "cor": "preta",
+            "tecido": "poliamida e poliéster",
+            "descricao": "tule preto brilhoso, com forro, decote reto",
+            "tamanhos": [
+                "PP",
+                "P",
+                "M",
+                "G",
+                "GG"
+            ],
+            "preco": 199.9
+        },
+        "Vestido": {
+            "modelo": "manga longa",
+            "cor": "preto",
+            "tecido": "viscose",
+            "descricao": "manga bufante, estampa de florzinhas vermelhas",
+            "tamanhos": [
+                "PP",
+                "P",
+                "M",
+                "G",
+                "GG"
+            ],
+            "preco": 199.9
+        }
     },
-    "short":{
-        "Short Saia": {"modelo": "cintura alta", "cor": "preto e verde", "tecido": "poliéster e viscose", "descricao": "estampa xadrez", "tamanhos": ["PP", "P", "M", "G"], "preco": 159.9}
+    "short": {
+        "Short Saia": {
+            "modelo": "cintura alta",
+            "cor": "preto e verde",
+            "tecido": "poliéster e viscose",
+            "descricao": "estampa xadrez",
+            "tamanhos": [
+                "PP",
+                "P",
+                "M",
+                "G"
+            ],
+            "preco": 159.9
+        }
     },
-    "bermuda":{
-        "Bermuda Jeans": {"modelo": "lisa", "cor": "jeans claro", "tecido": "algodão", "descricao": "fechamento em zíper e botão", "tamanhos": [38, 40, 42, 44], "preco": 139.9}
+    "bermuda": {
+        "Bermuda Jeans": {
+            "modelo": "lisa",
+            "cor": "jeans claro",
+            "tecido": "algodão",
+            "descricao": "fechamento em zíper e botão",
+            "tamanhos": [
+                38,
+                40,
+                42,
+                44
+            ],
+            "preco": 139.9
+        }
+    },
+    "sapato": {
+        "Salto": {
+            "modelo": "alto",
+            "cor": "preto",
+            "tecido": "couro",
+            "descricao": "scarpin",
+            "tamanhos": [
+                "35",
+                "36",
+                "38"
+            ],
+            "preco": 219.0
+        },
+        "Tênis": {
+            "modelo": "all-star",
+            "cor": "preto",
+            "tecido": "pano",
+            "descricao": "cano alto",
+            "tamanhos": [
+                "34",
+                "35",
+                "36",
+                "37"
+            ],
+            "preco": 230.0
+        }
+    },
+    "bolsa": {
+        "Bolsa": {
+            "modelo": "tiracolo",
+            "cor": "verde",
+            "tecido": "veludo cotelê",
+            "descricao": "acompanha chaveiro de cristal",
+            "tamanhos": [
+                "U"
+            ],
+            "preco": 115.0
+        }
     }
 }

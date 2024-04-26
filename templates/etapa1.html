@@ -11,9 +11,9 @@
   <!-- Google Fonts Roboto -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
   <!-- MDB -->
-  <link rel="stylesheet" href="{{ url_for('static',    filename='css/mdb.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.min.css') }}">
   <!-- Custom styles -->
-  <link rel="stylesheet" href="{{ url_for('static',    filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
@@ -26,7 +26,7 @@
         <div class="row gy-3">
           <!-- Left elements -->
           <div class="col-lg-2 col-sm-4 col-4">
-            <img src="{{ url_for('static',    filename='img/Untitled_logo_1_free-file-removebg-preview(1).png')}}"
+            <img src="{{ url_for('static', filename='img/Untitled_logo_1_free-file-removebg-preview(1).png') }}"
               height="45" />
           </div>
           <!-- Left elements -->
@@ -55,6 +55,12 @@
       </div>
     </div>
     <!-- Heading -->
+
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href={{ url_for('adicionar_produto_pagina') }} target="_blank">Adicionar</a>
+      </li>
+    </ul>
   </header>
 
   <!-- sidebar + content -->
@@ -86,6 +92,7 @@
               <th scope="col">Descrição</th>
               <th scope="col">Tamanhos Disponíveis</th>
               <th scope="col">Preço</th>
+              <th scope="col">Ação</th> <!-- Adicionado -->
             </tr>
           </thead>
           <tbody>
@@ -101,6 +108,8 @@
               <td>{% for tamanho in produto_info['tamanhos'] %}{{ tamanho }}{% if not loop.last %}, {% endif %}{% endfor
                 %}</td>
               <td>{{ produto_info['preco'] }}</td>
+              <td><a href="{{ url_for('editar_produto_pagina', categoria=categoria, nome=produto_nome) }}">Editar</a></td>
+ <!-- Adicionado -->
             </tr>
             {% endfor %}
             {% endfor %}
@@ -112,3 +121,7 @@
     </div>
     </div>
   </section>
+
+</body>
+
+</html>
