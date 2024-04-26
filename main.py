@@ -98,6 +98,14 @@ def editar_produto_pagina(categoria, nome):
         return redirect('/')
     return render_template('editar_produto.html', produto=produto)
 
-    
+@app.route('/remover_produto', methods=['GET', 'POST'])
+def remover_produto_pagina():
+    if request.method == 'POST':
+        categoria = request.form['categoria'].lower()
+        produto_nome = request.form['nome']
+        remover_produto(categoria, produto_nome)
+        return redirect('/')
+    return render_template('remover_produto.html')
+
 if __name__ == "__main__":
     app.run(debug=True)

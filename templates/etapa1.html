@@ -61,6 +61,12 @@
         <a class="nav-link" href={{ url_for('adicionar_produto_pagina') }} target="_blank">Adicionar</a>
       </li>
     </ul>
+
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href={{ url_for('remover_produto_pagina') }} target="_blank">Remover</a>
+      </li>
+    </ul>
   </header>
 
   <!-- sidebar + content -->
@@ -108,8 +114,9 @@
               <td>{% for tamanho in produto_info['tamanhos'] %}{{ tamanho }}{% if not loop.last %}, {% endif %}{% endfor
                 %}</td>
               <td>{{ produto_info['preco'] }}</td>
-              <td><a href="{{ url_for('editar_produto_pagina', categoria=categoria, nome=produto_nome) }}">Editar</a></td>
- <!-- Adicionado -->
+              <td><a href="{{ url_for('editar_produto_pagina', categoria=categoria, nome=produto_nome) }}">Editar</a>
+              </td>
+              <!-- Adicionado -->
             </tr>
             {% endfor %}
             {% endfor %}

@@ -245,16 +245,5 @@
             "preco": 230.0
         }
     },
-    "bolsa": {
-        "Bolsa": {
-            "modelo": "tiracolo",
-            "cor": "verde",
-            "tecido": "veludo cotelê",
-            "descricao": "acompanha chaveiro de cristal",
-            "tamanhos": [
-                "U"
-            ],
-            "preco": 115.0
-        }
-    }
+    "bolsa": {}
 }
