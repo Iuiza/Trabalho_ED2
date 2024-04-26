@@ -35,8 +35,8 @@
           <div class="col-lg-5 col-md-12 col-12">
             <div class="input-group float-center">
               <div class="form-outline">
-                <input type="search" id="form1" class="form-control" />
-                <label class="form-label" for="form1">Search</label>
+                <input type="search" id="searchInput" class="form-control" oninput="buscarProduto(this.value)" />
+                <label class="form-label" for="searchInput">Search</label>
               </div>
               <button type="button" class="btn btn-primary shadow-0">
                 <i class="fas fa-search"></i>
@@ -82,46 +82,45 @@
       <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
         <div class="btn-group shadow-0 border">
         </div>
-    </div>
-    </header>
-    <div class="container">
-      <h2 class="text-center">Catálogo</h2>
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Categoria</th>
-              <th scope="col">Produto</th>
-              <th scope="col">Modelo</th>
-              <th scope="col">Cor</th>
-              <th scope="col">Tecido</th>
-              <th scope="col">Descrição</th>
-              <th scope="col">Tamanhos Disponíveis</th>
-              <th scope="col">Preço</th>
-              <th scope="col">Ação</th> <!-- Adicionado -->
-            </tr>
-          </thead>
-          <tbody>
-            {% for categoria, produtos_categoria in catalogo.items() %}
-            {% for produto_nome, produto_info in produtos_categoria.items() %}
-            <tr>
-              <td>{{ categoria.capitalize() }}</td>
-              <td>{{ produto_nome.replace('_', ' ').capitalize() }}</td>
-              <td>{{ produto_info['modelo'] }}</td>
-              <td>{{ produto_info['cor'] }}</td>
-              <td>{{ produto_info['tecido'] }}</td>
-              <td>{{ produto_info['descricao'] }}</td>
-              <td>{% for tamanho in produto_info['tamanhos'] %}{{ tamanho }}{% if not loop.last %}, {% endif %}{% endfor
-                %}</td>
-              <td>{{ produto_info['preco'] }}</td>
-              <td><a href="{{ url_for('editar_produto_pagina', categoria=categoria, nome=produto_nome) }}">Editar</a>
-              </td>
-              <!-- Adicionado -->
-            </tr>
-            {% endfor %}
-            {% endfor %}
-          </tbody>
-        </table>
+      </header>
+      <div class="container">
+        <h2 class="text-center">Catálogo</h2>
+        <div class="table-responsive">
+          <table id="tabelaProdutos" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Categoria</th>
+                <th scope="col">Produto</th>
+                <th scope="col">Modelo</th>
+                <th scope="col">Cor</th>
+                <th scope="col">Tecido</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Tamanhos Disponíveis</th>
+                <th scope="col">Preço</th>
+                <th scope="col">Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for categoria, produtos_categoria in catalogo.items() %}
+              {% for produto_nome, produto_info in produtos_categoria.items() %}
+              <tr>
+                <td>{{ categoria.capitalize() }}</td>
+                <td>{{ produto_nome.replace('_', ' ').capitalize() }}</td>
+                <td>{{ produto_info['modelo'] }}</td>
+                <td>{{ produto_info['cor'] }}</td>
+                <td>{{ produto_info['tecido'] }}</td>
+                <td>{{ produto_info['descricao'] }}</td>
+                <td>{% for tamanho in produto_info['tamanhos'] %}{{ tamanho }}{% if not loop.last %}, {% endif %}{% endfor
+                  %}</td>
+                <td>{{ produto_info['preco'] }}</td>
+                <td><a href="{{ url_for('editar_produto_pagina', categoria=categoria, nome=produto_nome) }}">Editar</a>
+                </td>
+              </tr>
+              {% endfor %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     </div>
@@ -129,6 +128,22 @@
     </div>
   </section>
 
+  <!-- Inclua a biblioteca jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <!-- Inclua a biblioteca jQuery UI -->
+  <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+  <script>
+    function buscarProduto(termo) {
+      $('#tabelaProdutos tbody tr').hide();
+      $('#tabelaProdutos tbody tr').each(function () {
+        var categoria = $(this).find('td:eq(0)').text().toLowerCase();
+        var produto = $(this).find('td:eq(1)').text().toLowerCase();
+        if (categoria.includes(termo.toLowerCase()) || produto.includes(termo.toLowerCase())) {
+          $(this).show();
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>
