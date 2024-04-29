@@ -51,9 +51,7 @@ def home():
 @app.route('/etapa1')
 def sobre1():
     titulo= "Catalogo"
-    # Abra o arquivo JSON
     with open('produtos.json', 'r') as f:
-        # Carregue o conteúdo do arquivo JSON como um dicionário
         catalogo = json.load(f)
     return render_template('etapa1.html', titulo = titulo, catalogo = catalogo)
 

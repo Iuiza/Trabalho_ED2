@@ -128,18 +128,6 @@
                 44
             ],
             "preco": 199.9
-        },
-        "Sabrina": {
-            "modelo": "mini",
-            "cor": "rosa",
-            "tecido": "couro",
-            "descricao": "mini saia da sabrina carpenter",
-            "tamanhos": [
-                "PP",
-                "P",
-                "M"
-            ],
-            "preco": 139.9
         }
     },
     "casaco": {
