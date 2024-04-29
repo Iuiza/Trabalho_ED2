@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Produto</title>
+    <link rel="stylesheet" href="{{ url_for('static',    filename='css/style_adicionar.css') }}">
 </head>
+
 <body>
     <h1>Adicionar Produto</h1>
     <form method="POST">
         <label for="categoria">Categoria:</label>
         <input type="text" id="categoria" name="categoria" required><br><br>
-        
+
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required><br><br>
-        
+
         <label for="modelo">Modelo:</label>
         <input type="text" id="modelo" name="modelo" required><br><br>
-        
+
         <label for="cor">Cor:</label>
         <input type="text" id="cor" name="cor" required><br><br>
-        
+
         <label for="tecido">Tecido:</label>
         <input type="text" id="tecido" name="tecido" required><br><br>
-        
+
         <label for="descricao">Descrição:</label><br>
         <textarea id="descricao" name="descricao" rows="4" cols="50" required></textarea><br><br>
-        
+
         <label for="tamanhos">Tamanhos Disponíveis (separados por vírgula):</label>
         <input type="text" id="tamanhos" name="tamanhos" required><br><br>
-        
+
         <label for="preco">Preço:</label>
         <input type="text" id="preco" name="preco" required><br><br>
-        
+
         <input type="submit" value="Adicionar Produto">
     </form>
 </body>
+
 </html>
