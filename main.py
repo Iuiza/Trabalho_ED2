@@ -1,22 +1,19 @@
-from flask import Flask, render_template, url_for, send_file, redirect, request
+from flask import Flask, render_template, send_file, redirect, request
 import gzip
 import json
 
 app = Flask(__name__)
 
 def carregar_catalogo():
-    """Carrega o catálogo a partir do arquivo JSON."""
     with open('produtos.json', 'r') as f:
         catalogo = json.load(f)
     return catalogo
 
 def salvar_catalogo(catalogo):
-    """Salva o catálogo atualizado no arquivo JSON."""
     with open('produtos.json', 'w') as f:
         json.dump(catalogo, f, indent=4, ensure_ascii=False)
 
 def adicionar_produto(produto, categoria, nome):
-    """Adiciona um novo produto ao catálogo."""
     catalogo = carregar_catalogo()
     categoria = categoria
     produto_nome = nome
@@ -26,7 +23,6 @@ def adicionar_produto(produto, categoria, nome):
     salvar_catalogo(catalogo)
 
 def editar_produto(categoria, produto_nome, novo_produto):
-    """Edita um produto existente no catálogo."""
     catalogo = carregar_catalogo()
     if categoria in catalogo and produto_nome in catalogo[categoria]:
         catalogo[categoria][produto_nome] = novo_produto
@@ -35,7 +31,6 @@ def editar_produto(categoria, produto_nome, novo_produto):
     return False
 
 def remover_produto(categoria, produto_nome):
-    """Remove um produto do catálogo."""
     catalogo = carregar_catalogo()
     if categoria in catalogo and produto_nome in catalogo[categoria]:
         del catalogo[categoria][produto_nome]
