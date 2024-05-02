@@ -95,7 +95,7 @@ def editar_produto_pagina(categoria, nome):
 def remover_produto_pagina():
     if request.method == 'POST':
         categoria = request.form['categoria'].lower()
-        produto_nome = request.form['nome']
+        produto_nome = request.form['nome'].lower()
         remover_produto(categoria, produto_nome)
         return redirect('/')
     return render_template('remover_produto.html')
