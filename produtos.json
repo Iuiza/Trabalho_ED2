@@ -26,20 +26,6 @@
             ],
             "preco": 79.9
         },
-        "Camisa Xadrez": {
-            "modelo": "manga longa",
-            "cor": "vermelha e preta",
-            "tecido": "algodão",
-            "descricao": "bolsos na frente e fechamento em botão",
-            "tamanhos": [
-                "PP",
-                "P",
-                "M",
-                "G",
-                "GG"
-            ],
-            "preco": 179.9
-        },
         "Camisa Regata": {
             "modelo": "alça fina",
             "cor": "preta",
@@ -98,19 +84,6 @@
                 46
             ],
             "preco": 219.9
-        },
-        "Calça anos 90": {
-            "modelo": "cintura média",
-            "cor": "vinho",
-            "tecido": "jeans",
-            "descricao": "costuras na cor branca",
-            "tamanhos": [
-                "35",
-                "36",
-                "38",
-                "40"
-            ],
-            "preco": 85.9
         }
     },
     "saia": {
@@ -164,20 +137,6 @@
             "cor": "preta",
             "tecido": "poliamida e poliéster",
             "descricao": "tule preto brilhoso, com forro, decote reto",
-            "tamanhos": [
-                "PP",
-                "P",
-                "M",
-                "G",
-                "GG"
-            ],
-            "preco": 199.9
-        },
-        "Vestido": {
-            "modelo": "manga longa",
-            "cor": "preto",
-            "tecido": "viscose",
-            "descricao": "manga bufante, estampa de florzinhas vermelhas",
             "tamanhos": [
                 "PP",
                 "P",

@@ -62,13 +62,6 @@
       </li>
     </ul>
 
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" href={{ url_for('remover_produto_pagina') }} target="_blank">Remover</a>
-      </li>
-    </ul>
-  </header>
-
   <!-- sidebar + content -->
   <section class="">
     <div class="download">
@@ -78,7 +71,7 @@
     </div>
     <!-- sidebar -->
     <!-- content -->
-    <div class="col-lg-9">
+    <div class="col-lg-10">
       <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
         <div class="btn-group shadow-0 border">
         </div>
@@ -97,7 +90,8 @@
                 <th scope="col">Descrição</th>
                 <th scope="col">Tamanhos Disponíveis</th>
                 <th scope="col">Preço</th>
-                <th scope="col">Ação</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Remover</th>
               </tr>
             </thead>
             <tbody>
@@ -113,8 +107,8 @@
                 <td>{% for tamanho in produto_info['tamanhos'] %}{{ tamanho }}{% if not loop.last %}, {% endif %}{% endfor
                   %}</td>
                 <td>{{ produto_info['preco'] }}</td>
-                <td><a href="{{ url_for('editar_produto_pagina', categoria=categoria, nome=produto_nome) }}">Editar</a>
-                </td>
+                <td><a class="nav-link" href="{{ url_for('editar_produto_pagina', categoria=categoria, nome=produto_nome) }}">Editar</a></td>
+                <td><a class="nav-link" href="{{ url_for('remover_produto_pagina', categoria=categoria, nome=produto_nome) }}">Remover</a></td>
               </tr>
               {% endfor %}
               {% endfor %}

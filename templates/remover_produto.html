@@ -4,18 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remover Produto</title>
-    <link rel="stylesheet" href="{{ url_for('static',    filename='css/style_remover.css') }}">
+    <title>Editar Produto</title>
+    <link rel="stylesheet" href="{{ url_for('static',    filename='css/style_editar.css') }}">
 </head>
 
 <body>
     <h1>Remover Produto</h1>
     <form method="POST">
-        <label for="categoria">Categoria:</label>
-        <input type="text" id="categoria" name="categoria"><br><br>
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" value="{{ produto['modelo'] }}" readonly><br><br>
 
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome"><br><br>
+        <label for="cor">Cor:</label>
+        <input type="text" id="cor" name="cor" value="{{ produto['cor'] }}" readonly><br><br>
+
+        <label for="tecido">Tecido:</label>
+        <input type="text" id="tecido" name="tecido" value="{{ produto['tecido'] }}" readonly><br><br>
+
+        <label for="descricao">Descrição:</label><br>
+        <input type="text" id="tecido" name="tecido" value="{{ produto['descricao'] }}" readonly><br><br>
+
+        <label for="tamanhos">Tamanhos Disponíveis (separados por vírgula):</label>
+        <input type="text" id="tamanhos" name="tamanhos" value="{{ ', '.join(produto['tamanhos']) }}" readonly><br><br>
+
+        <label for="preco">Preço:</label>
+        <input type="text" id="preco" name="preco" value="{{ produto['preco'] }}" readonly><br><br>
 
         <input type="submit" value="Remover Produto">
     </form>

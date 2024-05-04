@@ -91,14 +91,14 @@ def editar_produto_pagina(categoria, nome):
         return redirect('/')
     return render_template('editar_produto.html', produto=produto)
 
-@app.route('/remover_produto', methods=['GET', 'POST'])
-def remover_produto_pagina():
+@app.route('/remover_produto/<categoria>/<nome>', methods=['GET', 'POST'])
+def remover_produto_pagina(categoria, nome):
     if request.method == 'POST':
-        categoria = request.form['categoria'].lower()
-        produto_nome = request.form['nome'].lower()
-        remover_produto(categoria, produto_nome)
+        remover_produto(categoria, nome)  # Pass categoria and nome instead of categoria and produto
         return redirect('/')
-    return render_template('remover_produto.html')
+    catalogo = carregar_catalogo()
+    produto = catalogo.get(categoria, {}).get(nome)
+    return render_template('remover_produto.html', produto=produto)
 
 if __name__ == "__main__":
     app.run(debug=True)
