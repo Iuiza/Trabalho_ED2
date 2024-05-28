@@ -1,7 +1,73 @@
 from flask import Flask, render_template, send_file, redirect, request, jsonify
 import json
+from BTreeBiblioteca import Registro, Pagina, _Insere, Pesquisa, Imprime, ImprimeMenor, ImprimeMaior
 
 app = Flask(__name__)
+
+with open('produtos.json', 'r', encoding='utf-8') as file:
+    dados = json.load(file)
+
+ordem = 4
+arvore = None
+
+def carregar_catalogo():
+    with open('produtos.json', 'r') as f:
+        catalogo = json.load(f)
+    return catalogo
+
+def inserir_na_arvore(arvore, chave, elemento, ordem):
+    reg = Registro()
+    reg.Chave = chave
+    reg.Elemento = elemento
+    arvore = _Insere(reg, arvore, ordem)
+    return arvore
+
+def criar_arvore(dados, ordem):
+    arvore = None
+    for categoria, itens in dados.items():
+        for nome, detalhes in itens.items():
+            chave = f"{categoria}-{nome}"
+            arvore = inserir_na_arvore(arvore, chave, detalhes, ordem)
+    return arvore
+
+def pesquisar_na_arvore(arvore, chave):
+    reg = Registro()
+    reg.Chave = chave
+    resultado = Pesquisa(reg, arvore)
+    if resultado:
+        return resultado.Elemento
+    else:
+        return None
+
+def imprimir_arvore_em_ordem(arvore):
+    Imprime(arvore)
+
+def imprimir_registros_menores(arvore, chave):
+    reg = Registro()
+    reg.Chave = chave
+    ImprimeMenor(reg, arvore)
+
+def imprimir_registros_maiores(arvore, chave):
+    reg = Registro()
+    reg.Chave = chave
+    ImprimeMaior(reg, arvore)
+
+def imprimir_registros_intervalo(arvore, chave_min, chave_max):
+    reg_min = Registro()
+    reg_max = Registro()
+    reg_min.Chave = chave_min
+    reg_max.Chave = chave_max
+    imprimir_registros_menores_intervalo(arvore, reg_min, reg_max)
+
+def imprimir_registros_menores_intervalo(arvore, reg_min, reg_max):
+    if arvore is not None:
+        i = 0
+        while i < arvore.n:
+            imprimir_registros_menores_intervalo(arvore.p[i], reg_min, reg_max)
+            if reg_min.Chave <= arvore.r[i].Chave <= reg_max.Chave:
+                print(f"Chave: {arvore.r[i].Chave}, Elemento: {arvore.r[i].Elemento}")
+            i += 1
+        imprimir_registros_menores_intervalo(arvore.p[i], reg_min, reg_max)
 
 def compress_rle(data):
     if not data:
@@ -21,11 +87,6 @@ def compress_rle(data):
 
     compressed.append(prev_char + str(count))
     return ''.join(compressed)
-
-def carregar_catalogo():
-    with open('produtos.json', 'r') as f:
-        catalogo = json.load(f)
-    return catalogo
 
 def salvar_catalogo(catalogo):
     with open('produtos.json', 'w') as f:
@@ -55,6 +116,55 @@ def remover_produto(categoria, produto_nome):
         salvar_catalogo(catalogo)
         return True
     return False
+
+arvore = criar_arvore(dados, ordem)
+
+@app.route('/etapa2')
+def etapa2():
+    return render_template('etapa2.html')
+
+@app.route('/inserir', methods=['POST'])
+def inserir():
+    chave = request.form['chave']
+    elemento = request.form['elemento']
+    global arvore
+    arvore = inserir_na_arvore(arvore, chave, elemento, ordem)
+    return jsonify({"status": "success", "message": "Elemento inserido com sucesso!"})
+
+@app.route('/pesquisar', methods=['POST'])
+def pesquisar():
+    chave = request.form['chave-pesquisa']
+    elemento = pesquisar_na_arvore(arvore, chave)
+    if elemento:
+        return jsonify({"status": "success", "elemento": elemento})
+    else:
+        return jsonify({"status": "error", "message": "Elemento não encontrado."})
+
+@app.route('/imprimir')
+def imprimir():
+    from io import StringIO
+    import sys
+    output = StringIO()
+    sys.stdout = output
+    imprimir_arvore_em_ordem(arvore)
+    sys.stdout = sys.__stdout__
+    result = output.getvalue()
+    output.close()
+    return jsonify({"status": "success", "arvore": result})
+
+@app.route('/intervalo', methods=['POST'])
+def intervalo():
+    chave_min = request.form['chave-min']
+    chave_max = request.form['chave-max']
+    from io import StringIO
+    import sys
+    output = StringIO()
+    sys.stdout = output
+    imprimir_registros_intervalo(arvore, chave_min, chave_max)
+    sys.stdout = sys.__stdout__
+    result = output.getvalue()
+    output.close()
+    return jsonify({"status": "success", "resultado": result})
 
 @app.route("/")
 def home():

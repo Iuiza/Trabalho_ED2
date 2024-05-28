@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste da Árvore B</title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f8ff;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    h1 {
+        color: #004080;
+        margin-bottom: 20px;
+    }
+    
+    form {
+        background-color: #e6f0ff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        width: 300px;
+    }
+    
+    form h2 {
+        color: #004080;
+        margin-bottom: 10px;
+    }
+    
+    label {
+        display: block;
+        margin: 10px 0 5px;
+        color: #003366;
+    }
+    
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #b3d9ff;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #0073e6;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    
+    button:hover {
+        background-color: #005bb5;
+    }
+    
+    #resultados {
+        background-color: #e6f0ff;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        color: #003366;
+    }
+    
+    #resultados p {
+        margin: 0;
+    }
+</style>
+</head>
+<body>
+    <h1>Teste da Árvore B</h1>
+    <form id="inserir-form">
+        <h2>Inserir na Árvore B</h2>
+        <label for="chave">Chave:</label>
+        <input type="text" id="chave" name="chave" required>
+        <label for="elemento">Elemento:</label>
+        <input type="text" id="elemento" name="elemento" required>
+        <button type="submit">Inserir</button>
+    </form>
+    
+    <form id="pesquisar-form">
+        <h2>Pesquisar na Árvore B</h2>
+        <label for="chave-pesquisa">Chave:</label>
+        <input type="text" id="chave-pesquisa" name="chave-pesquisa" required>
+        <button type="submit">Pesquisar</button>
+    </form>
+
+    <form id="intervalo-form">
+        <h2>Pesquisar por Intervalo de Chaves</h2>
+        <label for="chave-min">Chave Min:</label>
+        <input type="text" id="chave-min" name="chave-min" required>
+        <label for="chave-max">Chave Max:</label>
+        <input type="text" id="chave-max" name="chave-max" required>
+        <button type="submit">Pesquisar</button>
+    </form>
+    
+    <h2>Árvore B em Ordem</h2>
+    <button onclick="window.location.href='/imprimir'">Imprimir Árvore B</button>
+
+    <div id="resultados"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function() {
+            $('#inserir-form').submit(function(event) {
+                event.preventDefault();
+                $.post('/inserir', $(this).serialize(), function(data) {
+                    $('#resultados').html(data.message);
+                });
+            });
+
+            $('#pesquisar-form').submit(function(event) {
+                event.preventDefault();
+                $.post('/pesquisar', $(this).serialize(), function(data) {
+                    if(data.status === "success") {
+                        $('#resultados').html("Elemento encontrado: " + data.elemento);
+                    } else {
+                        $('#resultados').html(data.message);
+                    }
+                });
+            });
+
+            $('#intervalo-form').submit(function(event) {
+                event.preventDefault();
+                $.post('/intervalo', $(this).serialize(), function(data) {
+                    $('#resultados').html(data.resultado);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
