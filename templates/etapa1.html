@@ -26,8 +26,7 @@
         <div class="row gy-3">
           <!-- Left elements -->
           <div class="col-lg-2 col-sm-4 col-4">
-            <img src="{{ url_for('static', filename='img/Untitled_logo_1_free-file-removebg-preview(1).png') }}"
-              height="45" />
+            <img src="{{ url_for('static', filename='img/Untitled_logo_1_free-file-removebg-preview(1).png') }}" height="45" />
           </div>
           <!-- Left elements -->
 
@@ -58,86 +57,94 @@
 
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       <li class="nav-item">
-        <a class="nav-link" href={{ url_for('adicionar_produto_pagina') }} target="_blank">Adicionar</a>
+        <a class="nav-link" href="{{ url_for('adicionar_produto_pagina') }}" target="_blank">Adicionar</a>
       </li>
     </ul>
 
-  <!-- sidebar + content -->
-  <section class="">
-    <div class="download">
-      <a href="{{ url_for('download_file') }}" download>
-        <button type="button">DOWNLOAD</button>
-      </a>
-    </div>
-    <!-- sidebar -->
-    <!-- content -->
-    <div class="col-lg-10">
-      <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
-        <div class="btn-group shadow-0 border">
-        </div>
-      </header>
-      <div class="container">
-        <h2 class="text-center">Catálogo</h2>
-        <div class="table-responsive">
-          <table id="tabelaProdutos" class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th scope="col">Categoria</th>
-                <th scope="col">Produto</th>
-                <th scope="col">Modelo</th>
-                <th scope="col">Cor</th>
-                <th scope="col">Tecido</th>
-                <th scope="col">Descrição</th>
-                <th scope="col">Tamanhos Disponíveis</th>
-                <th scope="col">Preço</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Remover</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for categoria, produtos_categoria in catalogo.items() %}
-              {% for produto_nome, produto_info in produtos_categoria.items() %}
-              <tr>
-                <td>{{ categoria.capitalize() }}</td>
-                <td>{{ produto_nome.replace('_', ' ').capitalize() }}</td>
-                <td>{{ produto_info['modelo'] }}</td>
-                <td>{{ produto_info['cor'] }}</td>
-                <td>{{ produto_info['tecido'] }}</td>
-                <td>{{ produto_info['descricao'] }}</td>
-                <td>{% for tamanho in produto_info['tamanhos'] %}{{ tamanho }}{% if not loop.last %}, {% endif %}{% endfor
-                  %}</td>
-                <td>{{ produto_info['preco'] }}</td>
-                <td><a class="nav-link" href="{{ url_for('editar_produto_pagina', categoria=categoria, nome=produto_nome) }}">Editar</a></td>
-                <td><a class="nav-link" href="{{ url_for('remover_produto_pagina', categoria=categoria, nome=produto_nome) }}">Remover</a></td>
-              </tr>
-              {% endfor %}
-              {% endfor %}
-            </tbody>
-          </table>
+    <!-- sidebar + content -->
+    <section class="">
+      <!-- Download button -->
+      <div class="download">
+        <button type="button" id="download-button">Download Catalog</button>
+      </div>
+      <!-- content -->
+      <div class="col-lg-10">
+        <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
+          <div class="btn-group shadow-0 border">
+          </div>
+        </header>
+        <div class="container">
+          <h2 class="text-center">Catálogo</h2>
+          <div class="table-responsive">
+            <table id="tabelaProdutos" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Produto</th>
+                  <th scope="col">Modelo</th>
+                  <th scope="col">Cor</th>
+                  <th scope="col">Tecido</th>
+                  <th scope="col">Descrição</th>
+                  <th scope="col">Tamanhos Disponíveis</th>
+                  <th scope="col">Preço</th>
+                  <th scope="col">Editar</th>
+                  <th scope="col">Remover</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for categoria, produtos_categoria in catalogo.items() %}
+                {% for produto_nome, produto_info in produtos_categoria.items() %}
+                <tr>
+                  <td>{{ categoria.capitalize() }}</td>
+                  <td>{{ produto_nome.replace('_', ' ').capitalize() }}</td>
+                  <td>{{ produto_info['modelo'] }}</td>
+                  <td>{{ produto_info['cor'] }}</td>
+                  <td>{{ produto_info['tecido'] }}</td>
+                  <td>{{ produto_info['descricao'] }}</td>
+                  <td>{% for tamanho in produto_info['tamanhos'] %}{{ tamanho }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                  <td>{{ produto_info['preco'] }}</td>
+                  <td><a class="nav-link" href="{{ url_for('editar_produto_pagina', categoria=categoria, nome=produto_nome) }}">Editar</a></td>
+                  <td><a class="nav-link" href="{{ url_for('remover_produto_pagina', categoria=categoria, nome=produto_nome) }}">Remover</a></td>
+                </tr>
+                {% endfor %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
-    </div>
-    </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Inclua a biblioteca jQuery -->
-  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-  <!-- Inclua a biblioteca jQuery UI -->
-  <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
-  <script>
-    function buscarProduto(termo) {
-      $('#tabelaProdutos tbody tr').hide();
-      $('#tabelaProdutos tbody tr').each(function () {
-        var categoria = $(this).find('td:eq(0)').text().toLowerCase();
-        var produto = $(this).find('td:eq(1)').text().toLowerCase();
-        if (categoria.includes(termo.toLowerCase()) || produto.includes(termo.toLowerCase())) {
-          $(this).show();
-        }
-      });
-    }
-  </script>
+    <!-- Inclua a biblioteca jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <!-- Inclua a biblioteca jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+    <script>
+      function buscarProduto(termo) {
+        $('#tabelaProdutos tbody tr').hide();
+        $('#tabelaProdutos tbody tr').each(function () {
+          var categoria = $(this).find('td:eq(0)').text().toLowerCase();
+          var produto = $(this).find('td:eq(1)').text().toLowerCase();
+          if (categoria.includes(termo.toLowerCase()) || produto.includes(termo.toLowerCase())) {
+            $(this).show();
+          }
+        });
+      }
+
+      document.getElementById('download-button').onclick = async function () {
+        const response = await fetch('/compress_and_download', {
+          method: 'GET',
+        });
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'compressed.json';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+    </script>
 </body>
 
 </html>

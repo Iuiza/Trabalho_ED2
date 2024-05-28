@@ -1,8 +1,26 @@
-from flask import Flask, render_template, send_file, redirect, request
-import gzip
+from flask import Flask, render_template, send_file, redirect, request, jsonify
 import json
 
 app = Flask(__name__)
+
+def compress_rle(data):
+    if not data:
+        return ""
+
+    compressed = []
+    count = 1
+    prev_char = data[0]
+
+    for char in data[1:]:
+        if char == prev_char:
+            count += 1
+        else:
+            compressed.append(prev_char + str(count))
+            prev_char = char
+            count = 1
+
+    compressed.append(prev_char + str(count))
+    return ''.join(compressed)
 
 def carregar_catalogo():
     with open('produtos.json', 'r') as f:
@@ -38,24 +56,25 @@ def remover_produto(categoria, produto_nome):
         return True
     return False
 
-
 @app.route("/")
 def home():
     return render_template("index.html")
     
 @app.route('/etapa1')
 def sobre1():
-    titulo= "Catalogo"
+    titulo = "Catalogo"
     with open('produtos.json', 'r') as f:
         catalogo = json.load(f)
-    return render_template('etapa1.html', titulo = titulo, catalogo = catalogo)
+    return render_template('etapa1.html', titulo=titulo, catalogo=catalogo)
 
-@app.route('/download')
-def download_file():
-    with open('produtos.json', 'rb') as arquivo_original:
-        with gzip.open('produtos.json.gz', 'wb') as arquivo_compactado:
-            arquivo_compactado.write(arquivo_original.read())
-    return send_file('produtos.json.gz', as_attachment=True)
+@app.route('/compress_and_download', methods=['GET'])
+def compress_and_download():
+    catalogo = carregar_catalogo()
+    json_string = json.dumps(catalogo)
+    compressed_data = compress_rle(json_string)
+    with open('compressed.json', 'w') as f:
+        f.write(compressed_data)
+    return send_file('compressed.json', as_attachment=True)
 
 @app.route('/adicionar_produto', methods=['GET', 'POST'])
 def adicionar_produto_pagina():
@@ -94,7 +113,7 @@ def editar_produto_pagina(categoria, nome):
 @app.route('/remover_produto/<categoria>/<nome>', methods=['GET', 'POST'])
 def remover_produto_pagina(categoria, nome):
     if request.method == 'POST':
-        remover_produto(categoria, nome)  # Pass categoria and nome instead of categoria and produto
+        remover_produto(categoria, nome)
         return redirect('/')
     catalogo = carregar_catalogo()
     produto = catalogo.get(categoria, {}).get(nome)
