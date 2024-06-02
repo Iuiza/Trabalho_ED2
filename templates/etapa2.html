@@ -3,142 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste da Árvore B</title>
-<style>
-    body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f0f8ff;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    h1 {
-        color: #004080;
-        margin-bottom: 20px;
-    }
-    
-    form {
-        background-color: #e6f0ff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-        width: 300px;
-    }
-    
-    form h2 {
-        color: #004080;
-        margin-bottom: 10px;
-    }
-    
-    label {
-        display: block;
-        margin: 10px 0 5px;
-        color: #003366;
-    }
-    
-    input[type="text"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #b3d9ff;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
-    
-    button {
-        width: 100%;
-        padding: 10px;
-        background-color: #0073e6;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-    
-    button:hover {
-        background-color: #005bb5;
-    }
-    
-    #resultados {
-        background-color: #e6f0ff;
-        padding: 10px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 300px;
-        color: #003366;
-    }
-    
-    #resultados p {
-        margin: 0;
-    }
-</style>
+    <title>Árvore B</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #4682b4;
+        }
+        form {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 8px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4682b4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #5a9bd3;
+        }
+        #resultados {
+            white-space: pre-wrap;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Teste da Árvore B</h1>
+    <h1>Funcionalidades da Árvore B</h1>
+
+    <h2>Inserir Elemento</h2>
     <form id="inserir-form">
-        <h2>Inserir na Árvore B</h2>
-        <label for="chave">Chave:</label>
-        <input type="text" id="chave" name="chave" required>
-        <label for="elemento">Elemento:</label>
-        <input type="text" id="elemento" name="elemento" required>
+        <label for="categoria">Categoria:</label>
+        <input type="text" id="categoria" name="categoria" required>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" required>
+        <label for="cor">Cor:</label>
+        <input type="text" id="cor" name="cor" required>
+        <label for="tecido">Tecido:</label>
+        <input type="text" id="tecido" name="tecido" required>
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" rows="3" required></textarea>
+        <label for="tamanhos">Tamanhos (separados por vírgula):</label>
+        <input type="text" id="tamanhos" name="tamanhos" required>
+        <label for="preco">Preço:</label>
+        <input type="text" id="preco" name="preco" required>
         <button type="submit">Inserir</button>
     </form>
-    
+
+    <h2>Pesquisar Elemento</h2>
     <form id="pesquisar-form">
-        <h2>Pesquisar na Árvore B</h2>
         <label for="chave-pesquisa">Chave:</label>
         <input type="text" id="chave-pesquisa" name="chave-pesquisa" required>
         <button type="submit">Pesquisar</button>
     </form>
 
-    <form id="intervalo-form">
-        <h2>Pesquisar por Intervalo de Chaves</h2>
-        <label for="chave-min">Chave Min:</label>
-        <input type="text" id="chave-min" name="chave-min" required>
-        <label for="chave-max">Chave Max:</label>
-        <input type="text" id="chave-max" name="chave-max" required>
-        <button type="submit">Pesquisar</button>
+    <h2>Imprimir Menores que a Chave</h2>
+    <form id="menores-form">
+        <label for="chave-menores">Chave:</label>
+        <input type="text" id="chave-menores" name="chave-menores" required>
+        <button type="submit">Imprimir Menores</button>
     </form>
-    
-    <h2>Árvore B em Ordem</h2>
-    <button onclick="window.location.href='/imprimir'">Imprimir Árvore B</button>
+
+    <h2>Imprimir Maiores que a Chave</h2>
+    <form id="maiores-form">
+        <label for="chave-maiores">Chave:</label>
+        <input type="text" id="chave-maiores" name="chave-maiores" required>
+        <button type="submit">Imprimir Maiores</button>
+    </form>
+
+    <h2>Imprimir Intervalo</h2>
+    <form id="intervalo-form">
+        <label for="chave-min">Chave Mínima:</label>
+        <input type="text" id="chave-min" name="chave-min" required>
+        <label for="chave-max">Chave Máxima:</label>
+        <input type="text" id="chave-max" name="chave-max" required>
+        <button type="submit">Imprimir Intervalo</button>
+    </form>
+
+    <h2>Imprimir Árvore</h2>
+    <button id="imprimir-btn">Imprimir Árvore</button>
 
     <div id="resultados"></div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(function() {
-            $('#inserir-form').submit(function(event) {
-                event.preventDefault();
-                $.post('/inserir', $(this).serialize(), function(data) {
-                    $('#resultados').html(data.message);
-                });
-            });
+        document.getElementById('inserir-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const categoria = document.getElementById('categoria').value;
+            const nome = document.getElementById('nome').value;
+            const modelo = document.getElementById('modelo').value;
+            const cor = document.getElementById('cor').value;
+            const tecido = document.getElementById('tecido').value;
+            const descricao = document.getElementById('descricao').value;
+            const tamanhos = document.getElementById('tamanhos').value.split(',');
+            const preco = parseFloat(document.getElementById('preco').value);
 
-            $('#pesquisar-form').submit(function(event) {
-                event.preventDefault();
-                $.post('/pesquisar', $(this).serialize(), function(data) {
-                    if(data.status === "success") {
-                        $('#resultados').html("Elemento encontrado: " + data.elemento);
-                    } else {
-                        $('#resultados').html(data.message);
-                    }
-                });
-            });
+            const produto = {
+                "modelo": modelo,
+                "cor": cor,
+                "tecido": tecido,
+                "descricao": descricao,
+                "tamanhos": tamanhos,
+                "preco": preco
+            };
 
-            $('#intervalo-form').submit(function(event) {
-                event.preventDefault();
-                $.post('/intervalo', $(this).serialize(), function(data) {
-                    $('#resultados').html(data.resultado);
-                });
+            const chave = `${categoria}-${nome}`;
+
+            fetch('/inserir', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `chave=${encodeURIComponent(chave)}&categoria=${encodeURIComponent(categoria)}&nome=${encodeURIComponent(nome)}&modelo=${encodeURIComponent(modelo)}&cor=${encodeURIComponent(cor)}&tecido=${encodeURIComponent(tecido)}&descricao=${encodeURIComponent(descricao)}&tamanhos=${encodeURIComponent(tamanhos)}&preco=${encodeURIComponent(preco)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
             });
         });
+
+        document.getElementById('pesquisar-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const chave = document.getElementById('chave-pesquisa').value;
+            fetch('/pesquisar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `chave-pesquisa=${encodeURIComponent(chave)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultadosDiv = document.getElementById('resultados');
+                resultadosDiv.textContent = JSON.stringify(data, null, 2);
+            });
+        });
+
+        document.getElementById('menores-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const chave = document.getElementById('chave-menores').value;
+            fetch('/imprimir_menores', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `chave-menores=${encodeURIComponent(chave)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultadosDiv = document.getElementById('resultados');
+                resultadosDiv.textContent = data.resultado;
+            });
+        });
+
+        document.getElementById('maiores-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const chave = document.getElementById('chave-maiores').value;
+            fetch('/imprimir_maiores', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `chave-maiores=${encodeURIComponent(chave)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultadosDiv = document.getElementById('resultados');
+                resultadosDiv.textContent = data.resultado;
+            });
+        });
+
+        document.getElementById('intervalo-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const chaveMin = document.getElementById('chave-min').value;
+            const chaveMax = document.getElementById('chave-max').value;
+            fetch('/imprimir_intervalo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `chave-min=${encodeURIComponent(chaveMin)}&chave-max=${encodeURIComponent(chaveMax)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultadosDiv = document.getElementById('resultados');
+                resultadosDiv.textContent = data.resultado;
+            });
+        });
+
+        document.getElementById('imprimir-btn').addEventListener('click', function() {
+        fetch('/imprimir')
+        .then(response => response.json())
+        .then(data => {
+            const resultadosDiv = document.getElementById('resultados');
+            resultadosDiv.textContent = data.resultado;
+        });
+    });
     </script>
 </body>
 </html>

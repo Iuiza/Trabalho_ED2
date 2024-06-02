@@ -1,8 +1,11 @@
 from flask import Flask, render_template, send_file, redirect, request, jsonify
 import json
+import logging
 from BTreeBiblioteca import Registro, Pagina, _Insere, Pesquisa, Imprime, ImprimeMenor, ImprimeMaior
 
 app = Flask(__name__)
+
+logging.basicConfig(level=logging.DEBUG)
 
 with open('produtos.json', 'r', encoding='utf-8') as file:
     dados = json.load(file)
@@ -39,18 +42,42 @@ def pesquisar_na_arvore(arvore, chave):
     else:
         return None
 
-def imprimir_arvore_em_ordem(arvore):
+def imprimir_toda_arvore(arvore):
+    from io import StringIO
+    import sys
+    output = StringIO()
+    sys.stdout = output
     Imprime(arvore)
+    sys.stdout = sys.__stdout__
+    result = output.getvalue()
+    output.close()
+    return result
 
 def imprimir_registros_menores(arvore, chave):
+    from io import StringIO
+    import sys
+    output = StringIO()
+    sys.stdout = output
     reg = Registro()
     reg.Chave = chave
     ImprimeMenor(reg, arvore)
+    sys.stdout = sys.__stdout__
+    result = output.getvalue()
+    output.close()
+    return result
 
 def imprimir_registros_maiores(arvore, chave):
+    from io import StringIO
+    import sys
+    output = StringIO()
+    sys.stdout = output
     reg = Registro()
     reg.Chave = chave
     ImprimeMaior(reg, arvore)
+    sys.stdout = sys.__stdout__
+    result = output.getvalue()
+    output.close()
+    return result
 
 def imprimir_registros_intervalo(arvore, chave_min, chave_max):
     reg_min = Registro()
@@ -118,6 +145,7 @@ def remover_produto(categoria, produto_nome):
     return False
 
 arvore = criar_arvore(dados, ordem)
+logging.debug(f"Árvore B inicializada: {arvore}")
 
 @app.route('/etapa2')
 def etapa2():
@@ -125,37 +153,69 @@ def etapa2():
 
 @app.route('/inserir', methods=['POST'])
 def inserir():
-    chave = request.form['chave']
-    elemento = request.form['elemento']
+    categoria = request.form['categoria']
+    nome = request.form['nome']
+    modelo = request.form['modelo']
+    cor = request.form['cor']
+    tecido = request.form['tecido']
+    descricao = request.form['descricao']
+    tamanhos = request.form['tamanhos'].split(',')
+    preco = float(request.form['preco'])
+
+    produto = {
+        "modelo": modelo,
+        "cor": cor,
+        "tecido": tecido,
+        "descricao": descricao,
+        "tamanhos": tamanhos,
+        "preco": preco
+    }
+
+    chave = f"{categoria}-{nome}"
     global arvore
-    arvore = inserir_na_arvore(arvore, chave, elemento, ordem)
-    return jsonify({"status": "success", "message": "Elemento inserido com sucesso!"})
+    arvore = inserir_na_arvore(arvore, chave, produto, ordem)
+    adicionar_produto(produto, categoria, nome)
+    
+    return jsonify({"message": "Produto inserido com sucesso!"})
 
 @app.route('/pesquisar', methods=['POST'])
 def pesquisar():
     chave = request.form['chave-pesquisa']
+    logging.debug(f"Pesquisando chave: {chave}")
     elemento = pesquisar_na_arvore(arvore, chave)
     if elemento:
+        logging.debug(f"Elemento encontrado: {elemento}")
         return jsonify({"status": "success", "elemento": elemento})
     else:
+        logging.debug(f"Elemento não encontrado: {chave}")
         return jsonify({"status": "error", "message": "Elemento não encontrado."})
 
-@app.route('/imprimir')
-def imprimir():
-    from io import StringIO
-    import sys
-    output = StringIO()
-    sys.stdout = output
-    imprimir_arvore_em_ordem(arvore)
-    sys.stdout = sys.__stdout__
-    result = output.getvalue()
-    output.close()
-    return jsonify({"status": "success", "arvore": result})
+@app.route('/imprimir', methods=['GET'])
+def imprimir_arvore():
+    resultado = imprimir_toda_arvore(arvore)
+    return jsonify({"resultado": resultado})
 
-@app.route('/intervalo', methods=['POST'])
+@app.route('/imprimir_menores', methods=['POST'])
+def menores():
+    chave = request.form['chave-menores']
+    logging.debug(f"Pesquisando registros menores que a chave: {chave}")
+    result = imprimir_registros_menores(arvore, chave)
+    logging.debug("Registros menores impressos.")
+    return jsonify({"status": "success", "resultado": result})
+
+@app.route('/imprimir_maiores', methods=['POST'])
+def maiores():
+    chave = request.form['chave-maiores']
+    logging.debug(f"Pesquisando registros maiores que a chave: {chave}")
+    result = imprimir_registros_maiores(arvore, chave)
+    logging.debug("Registros maiores impressos.")
+    return jsonify({"status": "success", "resultado": result})
+
+@app.route('/imprimir_intervalo', methods=['POST'])
 def intervalo():
     chave_min = request.form['chave-min']
     chave_max = request.form['chave-max']
+    logging.debug(f"Pesquisando intervalo: chave_min={chave_min}, chave_max={chave_max}")
     from io import StringIO
     import sys
     output = StringIO()
@@ -164,6 +224,7 @@ def intervalo():
     sys.stdout = sys.__stdout__
     result = output.getvalue()
     output.close()
+    logging.debug("Intervalo de registros impresso.")
     return jsonify({"status": "success", "resultado": result})
 
 @app.route("/")

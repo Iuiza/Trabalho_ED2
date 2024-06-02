@@ -113,6 +113,19 @@
                 "G"
             ],
             "preco": 100.0
+        },
+        "Saia Jeans": {
+            "modelo": "cintura alta",
+            "cor": "preta",
+            "tecido": "algodão",
+            "descricao": "costuras marcantes e constrastantes",
+            "tamanhos": [
+                "34",
+                "36",
+                "38",
+                "40"
+            ],
+            "preco": 159.9
         }
     },
     "casaco": {
@@ -204,5 +217,30 @@
             "preco": 230.0
         }
     },
-    "bolsa": {}
+    "bolsa": {
+        "Bolsa": {
+            "modelo": "cotelê",
+            "cor": "verde",
+            "tecido": "veludo",
+            "descricao": "acompanha cheveiro de pedra",
+            "tamanhos": [
+                "U"
+            ],
+            "preco": 115.0
+        }
+    },
+    "biquíni": {
+        "Asa delta": {
+            "modelo": "cintura alta",
+            "cor": "preto",
+            "tecido": "poliéster",
+            "descricao": "fio dental",
+            "tamanhos": [
+                "P",
+                "M",
+                "G"
+            ],
+            "preco": 39.9
+        }
+    }
 }
