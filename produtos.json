@@ -1,6 +1,6 @@
 {
     "camisa": {
-        "Camisa Oversized": {
+        "Oversized": {
             "modelo": "manga curta",
             "cor": "verde",
             "tecido": "algodão",
@@ -13,7 +13,7 @@
             ],
             "preco": 99.9
         },
-        "Camisa Cropped": {
+        "Cropped": {
             "modelo": "manga curta",
             "cor": "preta",
             "tecido": "poliéster e elastano",
@@ -26,7 +26,7 @@
             ],
             "preco": 79.9
         },
-        "Camisa Regata": {
+        "Regata": {
             "modelo": "alça fina",
             "cor": "preta",
             "tecido": "algodão",
@@ -39,7 +39,7 @@
             ],
             "preco": 89.9
         },
-        "Camisa Tricotada": {
+        "Tricotada": {
             "modelo": "manga longa",
             "cor": "amarelo",
             "tecido": "algodão",
@@ -54,7 +54,7 @@
         }
     },
     "calça": {
-        "Calça Mom": {
+        "Mom": {
             "modelo": "destroyed",
             "cor": "preta",
             "tecido": "algodão",
@@ -70,7 +70,7 @@
             ],
             "preco": 189.9
         },
-        "Calça Jeans": {
+        "Jeans": {
             "modelo": "baggy",
             "cor": "jeans",
             "tecido": "algodão",
@@ -87,7 +87,7 @@
         }
     },
     "saia": {
-        "Saia Cargo": {
+        "Cargo": {
             "modelo": "cós duplo",
             "cor": "preta",
             "tecido": "algodão",
@@ -114,7 +114,7 @@
             ],
             "preco": 100.0
         },
-        "Saia Jeans": {
+        "Jeans": {
             "modelo": "cintura alta",
             "cor": "preta",
             "tecido": "algodão",
@@ -127,7 +127,7 @@
             ],
             "preco": 159.9
         },
-        "Saia Couro": {
+        "Couro": {
             "modelo": "cintura baixa",
             "cor": "preta",
             "tecido": "couro falso",
@@ -142,8 +142,8 @@
         }
     },
     "casaco": {
-        "Casaco de Pelinho": {
-            "modelo": "moletom",
+        "Moletom": {
+            "modelo": "peludo",
             "cor": "preta",
             "tecido": "poliéster",
             "descricao": "escrito bordado em preto",
@@ -158,7 +158,7 @@
         }
     },
     "vestido": {
-        "Vestido Tule": {
+        "Tule": {
             "modelo": "sem alça",
             "cor": "preta",
             "tecido": "poliamida e poliéster",
@@ -174,7 +174,7 @@
         }
     },
     "short": {
-        "Short Saia": {
+        "Short_Saia": {
             "modelo": "cintura alta",
             "cor": "preto e verde",
             "tecido": "poliéster e viscose",
@@ -228,6 +228,16 @@
                 "37"
             ],
             "preco": 230.0
+        },
+        "social": {
+            "modelo": "slim",
+            "cor": "marrom",
+            "tecido": "couro",
+            "descricao": "a",
+            "tamanhos": [
+                "U"
+            ],
+            "preco": 9.2
         }
     },
     "bolsa": {
@@ -254,6 +264,18 @@
                 "G"
             ],
             "preco": 39.9
+        }
+    },
+    "bola": {
+        "topper": {
+            "modelo": "de",
+            "cor": "preto",
+            "tecido": "ol",
+            "descricao": "asdasd",
+            "tamanhos": [
+                "U"
+            ],
+            "preco": 10.0
         }
     }
 }

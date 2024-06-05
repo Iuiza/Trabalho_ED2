@@ -90,7 +90,7 @@ def imprimir_registros_menores_intervalo(arvore, reg_min, reg_max):
         while i < arvore.n:
             imprimir_registros_menores_intervalo(arvore.p[i], reg_min, reg_max)
             if reg_min.Chave <= arvore.r[i].Chave <= reg_max.Chave:
-                print(f"Chave: {arvore.r[i].Chave}, Elemento: {arvore.r[i].Elemento}")
+                print(f"Chave: {arvore.r[i].Chave}, Posição: {arvore.r[i].Elemento}")
             i += 1
         imprimir_registros_menores_intervalo(arvore.p[i], reg_min, reg_max)
 
@@ -214,7 +214,7 @@ def imprimir_arvore():
 def menores():
     chave = request.form['chave-menores']
     logging.debug(f"Pesquisando registros menores que a chave: {chave}")
-    result = imprimir_registros_menores(arvore, chave)
+    result = imprimir_registros_menores(arvore_nome, chave)
     logging.debug("Registros menores impressos.")
     return jsonify({"status": "success", "resultado": result})
 
@@ -222,7 +222,7 @@ def menores():
 def maiores():
     chave = request.form['chave-maiores']
     logging.debug(f"Pesquisando registros maiores que a chave: {chave}")
-    result = imprimir_registros_maiores(arvore, chave)
+    result = imprimir_registros_maiores(arvore_nome, chave)
     logging.debug("Registros maiores impressos.")
     return jsonify({"status": "success", "resultado": result})
 
@@ -235,7 +235,7 @@ def intervalo():
     import sys
     output = StringIO()
     sys.stdout = output
-    imprimir_registros_intervalo(arvore, chave_min, chave_max)
+    imprimir_registros_intervalo(arvore_nome, chave_min, chave_max)
     sys.stdout = sys.__stdout__
     result = output.getvalue()
     output.close()
