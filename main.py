@@ -1,7 +1,10 @@
 from flask import Flask, render_template, send_file, redirect, request, jsonify
 import json
 import logging
-from BTreeBiblioteca import Registro, Pagina, _Insere, Pesquisa, Imprime, ImprimeMenor, ImprimeMaior
+import BTreeBiblioteca
+import pandas as pd
+from io import StringIO
+import sys
 
 app = Flask(__name__)
 
@@ -18,16 +21,16 @@ def carregar_catalogo():
         catalogo = json.load(f)
     return catalogo
 
-def inserir_na_arvore(arvore, chave, elemento, ordem):
-    reg = Registro()
+def inserir_na_arvore(arvore_nome, chave, elemento, ordem):
+    reg = BTreeBiblioteca.Registro()
     reg.Chave = chave
     reg.Elemento = elemento
-    arvore = _Insere(reg, arvore, ordem)
-    return arvore
+    arvore_nome = BTreeBiblioteca._Insere(reg, arvore_nome, ordem)
+    return arvore_nome
 
-def criar_arvore(dados):
-    ordem = 4
+def criar_arvore(dados, ordem):
     arvore = None
+    
     for categoria, itens in dados.items():
         for nome, detalhes in itens.items():
             chave = f"{categoria}-{nome}"
@@ -35,54 +38,48 @@ def criar_arvore(dados):
     return arvore
 
 def pesquisar_na_arvore(arvore, chave):
-    reg = Registro()
+    reg = BTreeBiblioteca.Registro()
     reg.Chave = chave
-    resultado = Pesquisa(reg, arvore)
+    resultado = BTreeBiblioteca.Pesquisa(reg, arvore)
     if resultado:
         return resultado.Elemento
     else:
         return None
 
 def imprimir_toda_arvore(arvore):
-    from io import StringIO
-    import sys
     output = StringIO()
     sys.stdout = output
-    Imprime(arvore)
+    BTreeBiblioteca.Imprime(arvore)
     sys.stdout = sys.__stdout__
     result = output.getvalue()
     output.close()
     return result
 
 def imprimir_registros_menores(arvore, chave):
-    from io import StringIO
-    import sys
     output = StringIO()
     sys.stdout = output
-    reg = Registro()
+    reg = BTreeBiblioteca.Registro()
     reg.Chave = chave
-    ImprimeMenor(reg, arvore)
+    BTreeBiblioteca.ImprimeMenor(reg, arvore)
     sys.stdout = sys.__stdout__
     result = output.getvalue()
     output.close()
     return result
 
 def imprimir_registros_maiores(arvore, chave):
-    from io import StringIO
-    import sys
     output = StringIO()
     sys.stdout = output
-    reg = Registro()
+    reg = BTreeBiblioteca.Registro()
     reg.Chave = chave
-    ImprimeMaior(reg, arvore)
+    BTreeBiblioteca.ImprimeMaior(reg, arvore)
     sys.stdout = sys.__stdout__
     result = output.getvalue()
     output.close()
     return result
 
 def imprimir_registros_intervalo(arvore, chave_min, chave_max):
-    reg_min = Registro()
-    reg_max = Registro()
+    reg_min = BTreeBiblioteca.Registro()
+    reg_max = BTreeBiblioteca.Registro()
     reg_min.Chave = chave_min
     reg_max.Chave = chave_max
     imprimir_registros_menores_intervalo(arvore, reg_min, reg_max)
@@ -145,8 +142,25 @@ def remover_produto(categoria, produto_nome):
         return True
     return False
 
-arvore = criar_arvore(dados, ordem)
-logging.debug(f"Árvore B inicializada: {arvore}")
+def criar_dataframe():
+    data = carregar_catalogo()
+    data_list = []
+
+    for categoria, produtos in data.items():
+        for nome, detalhes in produtos.items():
+            detalhes['categoria'] = categoria
+            detalhes['nome'] = nome
+            data_list.append(detalhes)
+
+    df = pd.json_normalize(data_list)
+
+    return df
+
+chave_nome = 7
+arvore_nome = BTreeBiblioteca.Inserir(arvore, 1, criar_dataframe(), chave_nome)
+
+chave_preco = 5
+arvore_preco = BTreeBiblioteca.Inserir(arvore, 1, criar_dataframe(), chave_preco)
 
 @app.route('/etapa2')
 def etapa2():
@@ -154,7 +168,7 @@ def etapa2():
 
 @app.route('/inserir', methods=['POST'])
 def inserir():
-    categoria = request.form['categoria']
+    categoria = request.form['categoria'].lower()
     nome = request.form['nome']
     modelo = request.form['modelo']
     cor = request.form['cor']
@@ -172,9 +186,9 @@ def inserir():
         "preco": preco
     }
 
-    chave = f"{categoria}-{nome}"
-    global arvore
-    arvore = inserir_na_arvore(arvore, chave, produto, ordem)
+    chave = nome
+    global arvore_nome
+    arvore_nome = inserir_na_arvore(arvore_nome, chave, produto, ordem)
     adicionar_produto(produto, categoria, nome)
     
     return jsonify({"message": "Produto inserido com sucesso!"})
@@ -183,17 +197,17 @@ def inserir():
 def pesquisar():
     chave = request.form['chave-pesquisa']
     logging.debug(f"Pesquisando chave: {chave}")
-    elemento = pesquisar_na_arvore(arvore, chave)
+    elemento = pesquisar_na_arvore(arvore_nome, chave)
     if elemento:
         logging.debug(f"Elemento encontrado: {elemento}")
-        return jsonify({"status": "success", "elemento": elemento})
+        return jsonify({"Posição no dataframe": elemento})
     else:
         logging.debug(f"Elemento não encontrado: {chave}")
         return jsonify({"status": "error", "message": "Elemento não encontrado."})
 
 @app.route('/imprimir', methods=['GET'])
 def imprimir_arvore():
-    resultado = imprimir_toda_arvore(arvore)
+    resultado = imprimir_toda_arvore(arvore_nome)
     return jsonify({"resultado": resultado})
 
 @app.route('/imprimir_menores', methods=['POST'])

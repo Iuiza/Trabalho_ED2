@@ -126,6 +126,19 @@
                 "40"
             ],
             "preco": 159.9
+        },
+        "Saia Couro": {
+            "modelo": "cintura baixa",
+            "cor": "preta",
+            "tecido": "couro falso",
+            "descricao": "saia drapeada de couro falso",
+            "tamanhos": [
+                "36",
+                "38",
+                "40",
+                "44"
+            ],
+            "preco": 137.95
         }
     },
     "casaco": {
