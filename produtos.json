@@ -1,6 +1,6 @@
 {
     "camisa": {
-        "Oversized": {
+        "Top": {
             "modelo": "manga curta",
             "cor": "verde",
             "tecido": "algodão",
@@ -39,7 +39,7 @@
             ],
             "preco": 89.9
         },
-        "Tricotada": {
+        "Sobretudo": {
             "modelo": "manga longa",
             "cor": "amarelo",
             "tecido": "algodão",
@@ -54,11 +54,11 @@
         }
     },
     "calça": {
-        "Mom": {
-            "modelo": "destroyed",
+        "Legging": {
+            "modelo": "slim",
             "cor": "preta",
             "tecido": "algodão",
-            "descricao": "rasgos desfiados nos joelhos",
+            "descricao": "empina bumbum",
             "tamanhos": [
                 32,
                 34,
@@ -83,11 +83,11 @@
                 44,
                 46
             ],
-            "preco": 219.9
+            "preco": 229.9
         }
     },
     "saia": {
-        "Cargo": {
+        "Saia": {
             "modelo": "cós duplo",
             "cor": "preta",
             "tecido": "algodão",
@@ -102,19 +102,7 @@
             ],
             "preco": 199.9
         },
-        "Sabrina": {
-            "modelo": "mini",
-            "cor": "rosa",
-            "tecido": "algodão",
-            "descricao": "mini saia rosa",
-            "tamanhos": [
-                "P",
-                "M",
-                "G"
-            ],
-            "preco": 100.0
-        },
-        "Jeans": {
+        "Minissaia": {
             "modelo": "cintura alta",
             "cor": "preta",
             "tecido": "algodão",
@@ -125,20 +113,7 @@
                 "38",
                 "40"
             ],
-            "preco": 159.9
-        },
-        "Couro": {
-            "modelo": "cintura baixa",
-            "cor": "preta",
-            "tecido": "couro falso",
-            "descricao": "saia drapeada de couro falso",
-            "tamanhos": [
-                "36",
-                "38",
-                "40",
-                "44"
-            ],
-            "preco": 137.95
+            "preco": 119.9
         }
     },
     "casaco": {
@@ -155,10 +130,35 @@
                 "GG"
             ],
             "preco": 215.0
+        },
+        "Blazer": {
+            "modelo": "moderno",
+            "cor": "preta",
+            "tecido": "couro falso",
+            "descricao": "blazer elegante",
+            "tamanhos": [
+                "36",
+                "38",
+                "40",
+                "44"
+            ],
+            "preco": 137.95
+        },
+        "Sueter": {
+            "modelo": "listrado",
+            "cor": "rosa",
+            "tecido": "algodão",
+            "descricao": "suéter feito pela vó",
+            "tamanhos": [
+                "P",
+                "M",
+                "G"
+            ],
+            "preco": 100.0
         }
     },
     "vestido": {
-        "Tule": {
+        "Vestido": {
             "modelo": "sem alça",
             "cor": "preta",
             "tecido": "poliamida e poliéster",
@@ -174,7 +174,7 @@
         }
     },
     "short": {
-        "Short_Saia": {
+        "Short": {
             "modelo": "cintura alta",
             "cor": "preto e verde",
             "tecido": "poliéster e viscose",
@@ -189,7 +189,7 @@
         }
     },
     "bermuda": {
-        "Bermuda Jeans": {
+        "Bermuda": {
             "modelo": "lisa",
             "cor": "jeans claro",
             "tecido": "algodão",
@@ -216,7 +216,7 @@
             ],
             "preco": 219.0
         },
-        "Tênis": {
+        "Tenis": {
             "modelo": "all-star",
             "cor": "preto",
             "tecido": "pano",
@@ -229,7 +229,7 @@
             ],
             "preco": 230.0
         },
-        "social": {
+        "Mocassim": {
             "modelo": "slim",
             "cor": "marrom",
             "tecido": "couro",
@@ -237,7 +237,7 @@
             "tamanhos": [
                 "U"
             ],
-            "preco": 9.2
+            "preco": 143.0
         }
     },
     "bolsa": {
@@ -252,8 +252,8 @@
             "preco": 115.0
         }
     },
-    "biquíni": {
-        "Asa delta": {
+    "biquini": {
+        "Biquini": {
             "modelo": "cintura alta",
             "cor": "preto",
             "tecido": "poliéster",
@@ -264,18 +264,6 @@
                 "G"
             ],
             "preco": 39.9
-        }
-    },
-    "bola": {
-        "topper": {
-            "modelo": "de",
-            "cor": "preto",
-            "tecido": "ol",
-            "descricao": "asdasd",
-            "tamanhos": [
-                "U"
-            ],
-            "preco": 10.0
         }
     }
 }

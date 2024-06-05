@@ -21,12 +21,12 @@ def carregar_catalogo():
         catalogo = json.load(f)
     return catalogo
 
-def inserir_na_arvore(arvore_nome, chave, elemento, ordem):
+def inserir_na_arvore(arvore, chave, elemento, ordem):
     reg = BTreeBiblioteca.Registro()
     reg.Chave = chave
     reg.Elemento = elemento
-    arvore_nome = BTreeBiblioteca._Insere(reg, arvore_nome, ordem)
-    return arvore_nome
+    arvore = BTreeBiblioteca._Insere(reg, arvore, ordem)
+    return arvore
 
 def criar_arvore(dados, ordem):
     arvore = None
@@ -156,11 +156,13 @@ def criar_dataframe():
 
     return df
 
+arvore_nome = None
 chave_nome = 7
-arvore_nome = BTreeBiblioteca.Inserir(arvore, 1, criar_dataframe(), chave_nome)
+arvore_nome = BTreeBiblioteca.Inserir(arvore_nome, 1, criar_dataframe(), chave_nome)
 
+arvore_preco = None
 chave_preco = 5
-arvore_preco = BTreeBiblioteca.Inserir(arvore, 1, criar_dataframe(), chave_preco)
+arvore_preco = BTreeBiblioteca.Inserir(arvore_preco, 1, criar_dataframe(), chave_preco)
 
 @app.route('/etapa2')
 def etapa2():
@@ -189,6 +191,11 @@ def inserir():
     chave = nome
     global arvore_nome
     arvore_nome = inserir_na_arvore(arvore_nome, chave, produto, ordem)
+
+    chave = preco
+    global arvore_preco
+    arvore_preco = inserir_na_arvore(arvore_preco, chave, produto, ordem)
+
     adicionar_produto(produto, categoria, nome)
     
     return jsonify({"message": "Produto inserido com sucesso!"})
@@ -197,7 +204,13 @@ def inserir():
 def pesquisar():
     chave = request.form['chave-pesquisa']
     logging.debug(f"Pesquisando chave: {chave}")
-    elemento = pesquisar_na_arvore(arvore_nome, chave)
+
+    if (chave.isalpha()):
+        elemento = pesquisar_na_arvore(arvore_nome, chave)
+    else:
+        chave = float(chave)
+        elemento = pesquisar_na_arvore(arvore_preco, chave)
+
     if elemento:
         logging.debug(f"Elemento encontrado: {elemento}")
         return jsonify({"Posição no dataframe": elemento})
@@ -214,7 +227,13 @@ def imprimir_arvore():
 def menores():
     chave = request.form['chave-menores']
     logging.debug(f"Pesquisando registros menores que a chave: {chave}")
-    result = imprimir_registros_menores(arvore_nome, chave)
+
+    if (chave.isalpha()):
+        result = imprimir_registros_menores(arvore_nome, chave)
+    else:
+        chave = float(chave)
+        result = imprimir_registros_menores(arvore_preco, chave)
+
     logging.debug("Registros menores impressos.")
     return jsonify({"status": "success", "resultado": result})
 
@@ -222,7 +241,12 @@ def menores():
 def maiores():
     chave = request.form['chave-maiores']
     logging.debug(f"Pesquisando registros maiores que a chave: {chave}")
-    result = imprimir_registros_maiores(arvore_nome, chave)
+    if (chave.isalpha()):
+        result = imprimir_registros_maiores(arvore_nome, chave)
+    else:
+        chave = float(chave)
+        result = imprimir_registros_maiores(arvore_preco, chave)
+
     logging.debug("Registros maiores impressos.")
     return jsonify({"status": "success", "resultado": result})
 
@@ -235,7 +259,13 @@ def intervalo():
     import sys
     output = StringIO()
     sys.stdout = output
-    imprimir_registros_intervalo(arvore_nome, chave_min, chave_max)
+    if (chave_min.isalpha() and chave_max.isalpha()):
+        imprimir_registros_intervalo(arvore_nome, chave_min, chave_max)
+    else:
+        chave_min = float(chave_min)
+        chave_max = float(chave_max)
+        imprimir_registros_intervalo(arvore_preco, chave_min, chave_max)
+    
     sys.stdout = sys.__stdout__
     result = output.getvalue()
     output.close()
