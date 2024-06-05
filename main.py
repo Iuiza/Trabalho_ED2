@@ -34,15 +34,6 @@ def criar_arvore(dados):
             arvore = inserir_na_arvore(arvore, chave, detalhes, ordem)
     return arvore
 
-def criar_arvore_preco(dados):
-    ordem = 4
-    arvore = None
-    for categoria, itens in dados.items():
-        for preco, detalhes in itens.items():
-            chave = preco
-            arvore = inserir_na_arvore(arvore, chave, detalhes, ordem)
-    return arvore
-
 def pesquisar_na_arvore(arvore, chave):
     reg = Registro()
     reg.Chave = chave

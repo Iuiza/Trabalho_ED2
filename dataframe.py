@@ -24,7 +24,7 @@ print(df)
 
 ap = None
 chave = 1
-x = 5 # 7 
+x = 7 
 
 ap = BTreeBiblioteca.Inserir(ap, chave, df, x)
 
