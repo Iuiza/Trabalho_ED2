@@ -121,32 +121,22 @@ def _Insere(Reg, Ap, Ordem):
   return Ap
   
 #Insere elementos do arquivo
-def _InserirElementos(Ap, ordem, dataframe, chave):
+def _InserirElementos(Ap, ordem, dataframe, chave, x):
   tam_lin, tam_col = dataframe.shape
   for i in range(tam_lin):
       reg = Registro()
-      reg.Chave = dataframe.iloc[i, 0]
+      reg.Chave = dataframe.iloc[i, x]
       reg.Elemento = i
       Ap = _Insere(reg, Ap, ordem)
       chave += 1
   return Ap, chave
 
 #Define os registros a serem inseridos
-def Inserir(Ap, chave):
-  ordem = int(input("Digite a ordem da árvore:"))
-  arq = input("Digite o nome do arquivo:")
-  if arq.lower().endswith(".csv"):
-    dataframe = pd.read_csv(arq, header=None)      
-  elif arq.lower().endswith((".xls", ".xlsx")):
-    dataframe = pd.read_excel(arq, header=None)
-  else:
-    print ("Arquivo incompatível.")
-  #imprimindo dataframe criado do arquivo
-  print("\nDataframe")
-  print(dataframe)
-  a = input("Digite um carater para continuar")
-  Ap, chave = _InserirElementos(Ap, ordem, dataframe, chave)
-  return Ap, chave, dataframe
+def Inserir(Ap, chave, df, x):
+  ordem = 4
+  dataframe = df
+  Ap, chave = _InserirElementos(Ap, ordem, dataframe, chave, x)
+  return Ap #, chave, dataframe
 
 #Impressão
 

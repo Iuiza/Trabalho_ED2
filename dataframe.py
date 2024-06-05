@@ -1,5 +1,6 @@
 import pandas as pd
 import json
+import BTreeBiblioteca
 
 # Carregar o arquivo JSON
 with open('produtos.json', 'r') as f:
@@ -20,3 +21,11 @@ df = pd.json_normalize(data_list)
 
 # Exibir o DataFrame
 print(df)
+
+ap = None
+chave = 1
+x = 5 # 7 
+
+ap = BTreeBiblioteca.Inserir(ap, chave, df, x)
+
+BTreeBiblioteca.Imprime(ap)

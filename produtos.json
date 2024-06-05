@@ -68,7 +68,7 @@
                 42,
                 44
             ],
-            "preco": 199.9
+            "preco": 189.9
         },
         "Calça Jeans": {
             "modelo": "baggy",
@@ -141,7 +141,7 @@
                 "G",
                 "GG"
             ],
-            "preco": 219.9
+            "preco": 215.0
         }
     },
     "vestido": {
@@ -157,7 +157,7 @@
                 "G",
                 "GG"
             ],
-            "preco": 199.9
+            "preco": 179.9
         }
     },
     "short": {
@@ -172,7 +172,7 @@
                 "M",
                 "G"
             ],
-            "preco": 159.9
+            "preco": 159.0
         }
     },
     "bermuda": {
