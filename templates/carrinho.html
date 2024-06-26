@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrinho</title>
+    <link rel="stylesheet" href="{{ url_for('static',    filename='css/style_carrinho.css') }}">
+</head>
+<body>
+    <h1>Loja Online</h1>
+    <h2>Produtos</h2>
+    <form id="form-carrinho">
+        <select id="produto" name="produto">
+            {% for categoria, produtos in catalogo.items() %}
+                {% for nome, detalhes in produtos.items() %}
+                <option value="{{ nome }}">{{ nome }} - R${{ detalhes['preco'] }}</option>
+                {% endfor %}
+            {% endfor %}
+        </select>
+        <button type="button" onclick="adicionarCarrinho()">Adicionar ao Carrinho</button>
+    </form>
+
+    <h2>Carrinho</h2>
+    <ul id="carrinho"></ul>
+
+    <h2>Calcular Frete</h2>
+    <form id="form-frete" method="post" action="/calcular_frete">
+        <label for="destino">Destino:</label>
+        <select id="destino" name="destino">
+            {% for node in node_coords.keys() %}
+                {% if node != 'Central Distribuição' %}
+                <option value="{{ node }}">{{ node }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <button type="button" onclick="calcularFrete()">Calcular</button>
+    </form>
+
+    <div id="resultado-frete"></div>
+    <div id="mapa">
+        <iframe src="mapa.html" width="100%" height="600px" id="mapa-iframe"></iframe>
+    </div>
+    
+    <script>
+        let carrinho = [];
+    
+        function adicionarCarrinho() {
+            const produto = document.getElementById('produto').value;
+            carrinho.push(produto);
+            const carrinhoUl = document.getElementById('carrinho');
+            const li = document.createElement('li');
+            li.textContent = produto;
+            carrinhoUl.appendChild(li);
+        }
+    
+        function calcularFrete() {
+            const form = document.getElementById('form-frete');
+            const data = new FormData(form);
+            fetch('/calcular_frete', {
+                method: 'POST',
+                body: data
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('resultado-frete').textContent = `Caminho: ${data.caminho.join(' -> ')}, Distância: ${data.distancia} km, Custo do Frete: R$${data.custo_frete.toFixed(2)}`;
+                const iframe = document.getElementById('mapa-iframe');
+                iframe.src = iframe.src;  // Recarrega o iframe
+            })
+            .catch(error => console.error('Erro ao calcular o frete:', error));
+        }
+    </script>
+</body>
+</html>

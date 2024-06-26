@@ -5,6 +5,10 @@ import BTreeBiblioteca
 import pandas as pd
 from io import StringIO
 import sys
+import networkx as nx
+import folium
+import os
+import math
 
 app = Flask(__name__)
 
@@ -155,6 +159,51 @@ def criar_dataframe():
     df = pd.json_normalize(data_list)
 
     return df
+
+catalogo = carregar_catalogo()
+
+# Criação do grafo com distâncias reais aproximadas
+G = nx.DiGraph()
+edges = [
+    ('Barra', 'Ondina', 2.5), ('Ondina', 'Rio Vermelho', 3.0), ('Barra', 'Rio Vermelho', 5.0),
+    ('Rio Vermelho', 'Pituba', 4.0), ('Ondina', 'Pituba', 5.5), ('Pituba', 'Amaralina', 1.5),
+    ('Amaralina', 'Itaigara', 2.0), ('Itaigara', 'Brotas', 2.5), ('Brotas', 'Garcia', 4.0),
+    ('Garcia', 'Canela', 1.5), ('Canela', 'Campo Grande', 2.0), ('Campo Grande', 'Comercio', 2.5),
+    ('Comercio', 'Pelourinho', 1.0), ('Pelourinho', 'Sao Joaquim', 2.0), ('Sao Joaquim', 'Bonfim', 3.0),
+    ('Bonfim', 'Ribeira', 2.5), ('Ribeira', 'Sao Caetano', 4.0), ('Sao Caetano', 'Liberdade', 3.5),
+    ('Liberdade', 'Cabula', 5.0), ('Cabula', 'Pernambués', 2.0), ('Pernambués', 'Tancredo Neves', 1.5),
+    ('Tancredo Neves', 'Iguatemi', 2.0), ('Iguatemi', 'Paralela', 2.5), ('Paralela', 'Stiep', 3.0),
+    ('Stiep', 'Costa Azul', 1.5), ('Costa Azul', 'Armação', 2.0), ('Armação', 'Itapuã', 6.0)
+]
+for edge in edges:
+    G.add_edge(edge[0], edge[1], weight=edge[2])
+
+# Coordenadas dos bairros e ponto central de distribuição
+node_coords = {
+    'Barra': [-13.0104, -38.5245], 'Ondina': [-13.0045, -38.5083], 'Rio Vermelho': [-12.9986, -38.5049],
+    'Pituba': [-12.9994, -38.4603], 'Amaralina': [-12.9886, -38.4601], 'Itaigara': [-12.9835, -38.4606],
+    'Brotas': [-12.9730, -38.4901], 'Garcia': [-12.9810, -38.5083], 'Canela': [-12.9780, -38.5124],
+    'Campo Grande': [-12.9773, -38.5163], 'Comercio': [-12.9692, -38.5161], 'Pelourinho': [-12.9712, -38.5079],
+    'Sao Joaquim': [-12.9505, -38.4858], 'Bonfim': [-12.9245, -38.5028], 'Ribeira': [-12.9095, -38.5048],
+    'Sao Caetano': [-12.9250, -38.4810], 'Liberdade': [-12.9268, -38.4775], 'Cabula': [-12.9268, -38.4352],
+    'Pernambués': [-12.9350, -38.4568], 'Tancredo Neves': [-12.9217, -38.4383], 'Iguatemi': [-12.9783, -38.4532],
+    'Paralela': [-12.9297, -38.4415], 'Stiep': [-13.0023, -38.4501], 'Costa Azul': [-12.9897, -38.4395],
+    'Armação': [-12.9778, -38.4348], 'Itapuã': [-12.9404, -38.3781], 'Central Distribuição': [-12.9730, -38.4901]
+}
+
+# Conectar a central de distribuição aos pontos mais próximos
+G.add_edge('Central Distribuição', 'Barra', weight=3.0)
+G.add_edge('Central Distribuição', 'Ondina', weight=2.5)
+G.add_edge('Central Distribuição', 'Rio Vermelho', weight=2.0)
+G.add_edge('Central Distribuição', 'Pernambués', weight=3)
+
+def add_edge(map_obj, start, end, color='blue'):
+    folium.PolyLine(
+        [start, end],
+        color=color,
+        weight=2.5,
+        opacity=1
+    ).add_to(map_obj)
 
 arvore_nome = None
 chave_nome = 7
@@ -334,6 +383,43 @@ def remover_produto_pagina(categoria, nome):
     catalogo = carregar_catalogo()
     produto = catalogo.get(categoria, {}).get(nome)
     return render_template('remover_produto.html', produto=produto)
+
+@app.route('/carrinho')
+def carrinho_pagina():
+    return render_template('carrinho.html', catalogo=catalogo, node_coords=node_coords)
+
+@app.route('/calcular_frete', methods=['POST'])
+def calcular_frete():
+    destino = request.form['destino']
+    origem = 'Central Distribuição'
+    caminho, distancia = nx.shortest_path(G, source=origem, target=destino, weight='weight'), nx.shortest_path_length(G, source=origem, target=destino, weight='weight')
+    custo_frete = distancia * 1
+
+    # Criação do mapa
+    m = folium.Map(location=[-12.9714, -38.5014], zoom_start=13)
+    for edge in G.edges(data=True):
+        start, end = node_coords[edge[0]], node_coords[edge[1]]
+        add_edge(m, start, end)
+    for node, coords in node_coords.items():
+        folium.Marker(location=coords, popup=node, icon=folium.Icon(color='red')).add_to(m)
+    for i in range(len(caminho) - 1):
+        start, end = node_coords[caminho[i]], node_coords[caminho[i + 1]]
+        add_edge(m, start, end, color='red')
+    
+    folium.Marker(location=node_coords['Central Distribuição'], popup='Central Distribuição', icon=folium.Icon(color='blue')).add_to(m)
+
+    # Salvar o mapa na pasta templates
+    mapa_path = os.path.join('templates', 'mapa.html')
+    m.save(mapa_path)
+
+    if not os.path.exists(mapa_path):
+        return jsonify({"status": "error", "message": "Falha ao salvar o mapa."})
+
+    return jsonify({"caminho": caminho, "distancia": distancia, "custo_frete": custo_frete, "mapa_url": "/mapa.html"})
+
+@app.route('/mapa.html')
+def mapa():
+    return render_template('mapa.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
