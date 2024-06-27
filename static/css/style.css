@@ -19,3 +19,14 @@
   font-weight: bold;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+.nav-link{
+  color: white;
+  font-size: large;
+  font-weight: bold;
+}
+
+#cart{
+  color: white;
+  margin-left: 900px;
+}

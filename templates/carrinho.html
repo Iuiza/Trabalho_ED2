@@ -2,56 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Carrinho</title>
-    <link rel="stylesheet" href="{{ url_for('static',    filename='css/style_carrinho.css') }}">
+    <title>Loja Online</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_carrinho.css') }}">
 </head>
 <body>
-    <h1>Loja Online</h1>
-    <h2>Produtos</h2>
-    <form id="form-carrinho">
-        <select id="produto" name="produto">
-            {% for categoria, produtos in catalogo.items() %}
-                {% for nome, detalhes in produtos.items() %}
-                <option value="{{ nome }}">{{ nome }} - R${{ detalhes['preco'] }}</option>
+    <header>
+        <h1>Carrinho</h1>
+    </header>
+    <div class="container">
+        <h2>Produtos</h2>
+        <form id="form-carrinho">
+            <label for="produto">Produto:</label>
+            <select id="produto" name="produto" onchange="atualizarTamanhos()">
+                {% for categoria, produtos in catalogo.items() %}
+                    {% for nome, detalhes in produtos.items() %}
+                    <option value="{{ nome }}" data-tamanhos="{{ detalhes.tamanhos|join(',') }}">{{ nome }} - R${{ detalhes.preco }}</option>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-        </select>
-        <button type="button" onclick="adicionarCarrinho()">Adicionar ao Carrinho</button>
-    </form>
-
-    <h2>Carrinho</h2>
-    <ul id="carrinho"></ul>
-
-    <h2>Calcular Frete</h2>
-    <form id="form-frete" method="post" action="/calcular_frete">
-        <label for="destino">Destino:</label>
-        <select id="destino" name="destino">
-            {% for node in node_coords.keys() %}
-                {% if node != 'Central Distribuição' %}
-                <option value="{{ node }}">{{ node }}</option>
-                {% endif %}
-            {% endfor %}
-        </select>
-        <button type="button" onclick="calcularFrete()">Calcular</button>
-    </form>
-
-    <div id="resultado-frete"></div>
-    <div id="mapa">
-        <iframe src="mapa.html" width="100%" height="600px" id="mapa-iframe"></iframe>
+            </select>
+            <label for="tamanho">Tamanho:</label>
+            <select id="tamanho" name="tamanho">
+                <!-- Tamanhos serão preenchidos por JavaScript -->
+            </select>
+            <button type="button" onclick="adicionarCarrinho()">Adicionar ao Carrinho</button>
+        </form>
+    
+        <h2>Carrinho</h2>
+        <ul id="carrinho"></ul>
+    
+        <h2>Calcular Frete</h2>
+        <form id="form-frete">
+            <label for="destino">Selecione o bairro de destino:</label>
+            <select id="destino" name="destino">
+                {% for node in node_coords.keys() %}
+                    {% if node != 'Central Distribuição' %}
+                    <option value="{{ node }}">{{ node }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <button type="button" onclick="calcularFrete()">Calcular Frete</button>
+        </form>
+    
+        <div id="resultado-frete"></div>
+        <div id="mapa">
+            <iframe src="mapa.html" width="100%" height="600px" id="mapa-iframe"></iframe>
+        </div>
     </div>
     
     <script>
-        let carrinho = [];
-    
+        const carrinho = [];
+
         function adicionarCarrinho() {
             const produto = document.getElementById('produto').value;
-            carrinho.push(produto);
+            const tamanho = document.getElementById('tamanho').value;
+            carrinho.push({ produto, tamanho });
             const carrinhoUl = document.getElementById('carrinho');
             const li = document.createElement('li');
-            li.textContent = produto;
+            li.textContent = `${produto} (${tamanho})`;
             carrinhoUl.appendChild(li);
         }
-    
+
+        function atualizarTamanhos() {
+            const produtoSelect = document.getElementById('produto');
+            const tamanhos = produtoSelect.options[produtoSelect.selectedIndex].getAttribute('data-tamanhos').split(',');
+            const tamanhoSelect = document.getElementById('tamanho');
+            tamanhoSelect.innerHTML = '';
+            tamanhos.forEach(tamanho => {
+                const option = document.createElement('option');
+                option.value = tamanho;
+                option.textContent = tamanho;
+                tamanhoSelect.appendChild(option);
+            });
+        }
+
         function calcularFrete() {
             const form = document.getElementById('form-frete');
             const data = new FormData(form);
@@ -67,6 +90,8 @@
             })
             .catch(error => console.error('Erro ao calcular o frete:', error));
         }
+
+        window.onload = atualizarTamanhos;
     </script>
 </body>
 </html>

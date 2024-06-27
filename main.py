@@ -8,7 +8,6 @@ import sys
 import networkx as nx
 import folium
 import os
-import math
 
 app = Flask(__name__)
 
@@ -167,58 +166,64 @@ G = nx.DiGraph()
 edges = [
     ('Barra', 'Ondina', 2.5), ('Ondina', 'Federação', 3.0),
     ('Federação', 'Pituba', 4.0), ('Pituba', 'Amaralina', 1.5),
-    ('Amaralina', 'Pituba', 1.5), ('Centro de Distribuição', 'Garcia', 3.0),
-    ('Garcia', 'Canela', 1.5), ('Canela', 'Campo Grande', 2.0), ('Campo Grande', 'Comercio', 2.5),
-    ('Comercio', 'Pelourinho', 1.0), ('Pelourinho', 'São Joaquim', 2.0), ('São Joaquim', 'Bonfim', 3.0),
+    ('Amaralina', 'Pituba', 1.5), ('Centro de Distribuição', 'Garcia', 3.0), ('Canela', 'Campo Grande', 2.0), ('Campo Grande', 'Comércio', 2.5),
+    ('Comércio', 'Pelourinho', 1.0), ('Pelourinho', 'São Joaquim', 2.0),
     ('Bonfim', 'Ribeira', 2.5), ('Ribeira', 'São Caetano', 4.0), ('São Caetano', 'Liberdade', 0.5),
-    ('Liberdade', 'Cabula', 5.0), ('Cabula', 'Pernambués', 2.0), ('Pernambués', 'Tancredo Neves', 1.5),
-    ('Tancredo Neves', 'Iguatemi', 2.0), ('Iguatemi', 'Paralela', 2.5), ('Paralela', 'Stiep', 3.0),
-    ('Stiep', 'Costa Azul', 1.5), ('Costa Azul', 'Armação', 2.0), ('Armação', 'Itapuã', 6.0)
+    ('Cabula', 'Mata Escura', 1.5), ('Mata Escura', 'Tancredo Neves', 1.5), ('Iguatemi', 'Paralela', 5.0),
+    ('Stiep', 'Costa Azul', 1.5), ('Costa Azul', 'Armação', 1.0), ('Armação', 'Itapuã', 4.0), ('Stiep', 'Pituaçu', 1.0), ('Pituaçu', 'Itapuã', 3.0)
 ]
 for edge in edges:
     G.add_edge(edge[0], edge[1], weight=edge[2])
 
 # Coordenadas dos bairros e ponto central de distribuição
 node_coords = {
-    'Barra': [-13.0104, -38.5245], 'Ondina': [-13.0045, -38.5083], 'Federação': [-12.9986, -38.5049],
-    'Pituba': [-12.9994, -38.4603], 'Amaralina': [-13.0122, -38.4716], 'Itaigara': [-12.9835, -38.4606],
-    'Garcia': [-12.9810, -38.5083], 'Canela': [-12.9920, -38.5210],
-    'Campo Grande': [-12.9773, -38.5163], 'Comercio': [-12.9692, -38.5161], 'Pelourinho': [-12.9712, -38.5079],
-    'São Joaquim': [-12.9505, -38.4858], 'Bonfim': [-12.9245, -38.5028], 'Ribeira': [-12.9195, -38.4991],
-    'São Caetano': [-12.9250, -38.4810], 'Liberdade': [-12.9268, -38.4775], 'Cabula': [-12.9575, -38.4657],
-    'Pernambués': [-12.9350, -38.4568], 'Tancredo Neves': [-12.9217, -38.4383], 'Iguatemi': [-12.9783, -38.4532],
-    'Paralela': [-12.9381, -38.4047], 'Stiep': [-13.0023, -38.4501], 'Costa Azul': [-12.9897, -38.4395],
-    'Armação': [-12.9778, -38.4348], 'Itapuã': [-12.9404, -38.3781], 'Centro de Distribuição': [-12.9730, -38.4901]
+    'Barra': [-13.005652530542964, -38.52780933712625], 'Ondina': [-13.005977431991946, -38.50992492411173], 'Federação': [-12.995376180538537, -38.5049512367971],
+    'Pituba': [-13.002703583595409, -38.459863424415985], 'Amaralina': [-13.011787437300079, -38.47160216063372], 'Itaigara': [-12.993658715961963, -38.46473007998844],
+    'Garcia': [-12.990992922926008, -38.512450771566854], 'Canela': [-12.991986253879722, -38.52156460867855],
+    'Campo Grande': [-12.98563351173232, -38.509495318939464], 'Comércio': [-12.97158469776923, -38.51500288111888], 'Pelourinho': [-12.97292044772543, -38.50965557848379],
+    'São Joaquim': [-12.977509297043566, -38.50118688936285], 'Bonfim': [-12.926656290216041, -38.50889348863223], 'Ribeira': [-12.919464349829349, -38.49932895248588],
+    'São Caetano': [-12.935037881129835, -38.47459603205215], 'Liberdade': [-12.949600058248876, -38.49621511923113], 'Cabula': [-12.957646369437148, -38.46574007507009],
+    'Mata Escura': [-12.934898514597188, -38.46122679546185], 'Tancredo Neves': [-12.94365629731757, -38.44960772747223], 'Iguatemi': [-12.981096062637421, -38.464985710659946],
+    'Paralela': [-12.938183940894238, -38.41129642149876], 'Stiep': [-12.98116502808459, -38.44627487718024], 'Costa Azul': [-12.99379864448179, -38.44580398425715],
+    'Armação': [-12.987193613034083, -38.438775409890305], 'Itapuã': [-12.937124674823417, -38.36117419076328], 'Pituaçu': [-12.958324082515647, -38.417501155339], 'Centro de Distribuição': [-12.972218589441002, -38.48860390331182]
 }
 
 # Conectar a central de distribuição aos pontos mais próximos
-G.add_edge('Centro de Distribuição', 'Itaigara', weight=2.5)
+G.add_edge('Centro de Distribuição', 'Iguatemi', weight=2.5)
 G.add_edge('Centro de Distribuição', 'Federação', weight=2.0)
-G.add_edge('Centro de Distribuição', 'Pernambués', weight=3.0)
-G.add_edge('Centro de Distribuição', 'São Joaquim', weight=2.0)
+G.add_edge('Centro de Distribuição', 'São Joaquim', weight=1.5)
 G.add_edge('Centro de Distribuição', 'Cabula', weight=1.5)
 G.add_edge('Barra', 'Federação', weight=2.1)
 G.add_edge('Barra', 'Canela', weight=2.6)
 G.add_edge('Ondina', 'Barra', weight=1.1)
-G.add_edge('Ondina', 'Canela', weight=2.9)
 G.add_edge('Federação', 'Ondina', weight=1.0)
 G.add_edge('Federação', 'Barra', weight=2.1)
 G.add_edge('Federação', 'Canela', weight=2.2)
-G.add_edge('Pituba', 'Stiep', weight=1.8)
-G.add_edge('Pituba', 'Canela', weight=2.2)
-G.add_edge('Amaralina', 'Stiep', weight=2.0)
+G.add_edge('Pituba', 'Costa Azul', weight=1.8)
+G.add_edge('Pituba', 'Federação', weight=2.2)
 G.add_edge('Amaralina', 'Ondina', weight=2.2)
 G.add_edge('Itaigara', 'Pituba', weight=1.7)
 G.add_edge('Itaigara', 'Iguatemi', weight=1.1)
+G.add_edge('Iguatemi', 'Itaigara', weight=1.1)
 G.add_edge('Garcia', 'Barra', weight=3.0)
-G.add_edge('Garcia', 'Pelourinho', weight=1.0)
+G.add_edge('Garcia', 'Campo Grande', weight=1.0)
 G.add_edge('Canela', 'Barra', weight=2.0)
-G.add_edge('Canela', 'Ondina', weight=2.1)
-G.add_edge('Campo Grande', 'Pelourinho', weight=2.0)
-G.add_edge('Pelourinho', 'Comercio', weight=1.0)
-G.add_edge('Pelourinho', 'Garcia', weight=1.2)
+G.add_edge('Campo Grande', 'São Joaquim', weight=2.0)
+G.add_edge('Pelourinho', 'Comércio', weight=1.0)
 G.add_edge('São Joaquim', 'Liberdade', weight=2.6)
-
+G.add_edge('São Joaquim', 'Pelourinho', weight=1.0)
+G.add_edge('São Caetano', 'Mata Escura', weight=2.6)
+G.add_edge('Liberdade', 'São Caetano', weight=1.0)
+G.add_edge('Liberdade', 'Mata Escura', weight=3.6)
+G.add_edge('Liberdade', 'Bonfim', weight=2.0)
+G.add_edge('Mata Escura', 'São Caetano', weight=2.0)
+G.add_edge('Tancredo Neves', 'Paralela', weight=4.0)
+G.add_edge('Iguatemi', 'Costa Azul', weight=1.0)
+G.add_edge('Paralela', 'Itapuã', weight=1.5)
+G.add_edge('Paralela', 'Pituaçu', weight=1.0)
+G.add_edge('Costa Azul', 'Stiep', weight=1.0)
+G.add_edge('Itapuã', 'Pituaçu', weight=1.5)
+G.add_edge('Pituaçu', 'Stiep', weight=3.0)
 
 def add_edge(map_obj, start, end, color='blue'):
     folium.PolyLine(
@@ -416,7 +421,7 @@ def calcular_frete():
     destino = request.form['destino']
     origem = 'Centro de Distribuição'
     caminho, distancia = nx.shortest_path(G, source=origem, target=destino, weight='weight'), nx.shortest_path_length(G, source=origem, target=destino, weight='weight')
-    custo_frete = distancia * 1
+    custo_frete = distancia * 2.5
 
     # Criação do mapa
     m = folium.Map(location=[-12.9714, -38.5014], zoom_start=13)
