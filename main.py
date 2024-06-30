@@ -423,6 +423,8 @@ def calcular_frete():
     origem = 'Centro de Distribuição'
     caminho, distancia = nx.shortest_path(G, source=origem, target=destino, weight='weight'), nx.shortest_path_length(G, source=origem, target=destino, weight='weight')
     custo_frete = distancia * 1.5
+    VELOCIDADE_MEDIA = 20 
+    tempo_entrega = distancia / VELOCIDADE_MEDIA
 
     # Criação do mapa
     m = folium.Map(location=[-12.9714, -38.5014], zoom_start=13)
@@ -444,7 +446,7 @@ def calcular_frete():
     if not os.path.exists(mapa_path):
         return jsonify({"status": "error", "message": "Falha ao salvar o mapa."})
 
-    return jsonify({"caminho": caminho, "distancia": distancia, "custo_frete": custo_frete, "mapa_url": "/mapa.html"})
+    return jsonify({"caminho": caminho, "distancia": distancia, "custo_frete": custo_frete, "mapa_url": "/mapa.html", 'tempo_entrega': tempo_entrega * 60})
 
 @app.route('/mapa.html')
 def mapa():

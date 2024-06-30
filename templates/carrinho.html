@@ -88,6 +88,7 @@
         }
 
         let custoFrete = 0;
+        let tempoEntrega = 0;
 
         function calcularFrete() {
             const form = document.getElementById('form-frete');
@@ -99,7 +100,8 @@
             .then(response => response.json())
             .then(data => {
                 custoFrete = data.custo_frete;
-                document.getElementById('resultado-frete').textContent = `Caminho: ${data.caminho.join(' -> ')}, Distância: ${data.distancia} km, Custo do Frete: R$${data.custo_frete.toFixed(2)}`;
+                tempoEntrega = data.tempo_entrega;
+                document.getElementById('resultado-frete').textContent = `Caminho: ${data.caminho.join(' -> ')}, Distância: ${data.distancia} km, Custo do Frete: R$${data.custo_frete.toFixed(2)}, Tempo de Entrega: ${data.tempo_entrega.toFixed(2)} minutos`;
                 const iframe = document.getElementById('mapa-iframe');
                 iframe.src = iframe.src;  // Recarrega o iframe
             })
@@ -109,7 +111,7 @@
         function finalizarCompra() {
             let totalItens = carrinho.reduce((total, item) => total + item.preco, 0);
             let valorFinal = totalItens + custoFrete;
-            document.getElementById('valor-final').textContent = `Valor Total dos Itens: R$${totalItens.toFixed(2)}, Frete: R$${custoFrete.toFixed(2)}, Valor Final: R$${valorFinal.toFixed(2)}`;
+            document.getElementById('valor-final').textContent = `Valor Total dos Itens: R$${totalItens.toFixed(2)}, Frete: R$${custoFrete.toFixed(2)}, Valor Final: R$${valorFinal.toFixed(2)}, Tempo de Entrega: ${tempoEntrega.toFixed(2)} minutos`;
             openModal();
         }
 
