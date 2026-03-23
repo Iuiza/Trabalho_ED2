@@ -1,4 +1,4 @@
-# Loja virtual
+# Loja de roupas virtual
 Sistemas de Informação - UNEB
 2024.1
 Disciplina: Estrutura de Dados II
